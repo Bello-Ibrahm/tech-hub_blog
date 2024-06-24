@@ -9,6 +9,8 @@ from models.user import User
 from models.category import Category
 from models.post import Post
 from os import getenv
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables from .env.
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
