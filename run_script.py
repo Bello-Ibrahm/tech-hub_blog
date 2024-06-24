@@ -1,0 +1,1 @@
+TECH_HUB_MYSQL_USER=tech_hub_blog_dev TECH_HUB_MYSQL_PWD=tech_hub_blog_dev_pwd TECH_HUB_MYSQL_HOST=localhost TECH_HUB_MYSQL_DB=tech_hub_blog_db python3 -m web_flask.index
