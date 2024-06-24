@@ -4,8 +4,6 @@ from models import storage
 from os import environ
 from flask import Flask, render_template
 app = Flask(__name__)
-# app.jinja_env.trim_blocks = True
-# app.jinja_env.lstrip_blocks = True
 
 
 @app.teardown_appcontext
@@ -14,13 +12,30 @@ def close_db(error):
     storage.close()
 
 
-@app.route('/hbnb', strict_slashes=False)
-def hbnb():
+@app.route('/', strict_slashes=False)
+def index():
     """ TECH HUB BLOG is alive! """
-
     return render_template('index.html')
+
+
+@app.route('/login', strict_slashes=False)
+def login():
+    """ Handles login """
+    return render_template('login.html')
+
+
+@app.route('/register', strict_slashes=False)
+def register():
+    """ Handles register """
+    return render_template('register.html')
+
+
+@app.route('/forgot-password', strict_slashes=False)
+def forgot_password():
+    """ Handles forgot password """
+    return render_template('forgot-password.html')
 
 
 if __name__ == "__main__":
     """ Main Function """
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
