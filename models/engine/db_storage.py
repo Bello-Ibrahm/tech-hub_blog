@@ -4,13 +4,10 @@ Contains the class DBStorage
 """
 
 import models
-from models.amenity import Amenity
 from models.base_model import BaseModel, Base
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
 from models.user import User
+from models.category import Category
+from models.post import Post
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
@@ -26,11 +23,13 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        HBNB_MYSQL_USER = getenv('TECH_HUB_MYSQL_USER')
-        HBNB_MYSQL_PWD = getenv('TECH_HUB_MYSQL_PWD')
-        HBNB_MYSQL_HOST = getenv('TECH_HUB_MYSQL_HOST')
-        HBNB_MYSQL_DB = getenv('TECH_HUB_MYSQL_DB')
-        HBNB_ENV = getenv('TECH_HUB_ENV')
+        TECH_HUB_MYSQL_USER = getenv('TECH_HUB_MYSQL_USER')
+        TECH_HUB_MYSQL_PWD = getenv('TECH_HUB_MYSQL_PWD')
+        TECH_HUB_MYSQL_HOST = getenv('TECH_HUB_MYSQL_HOST')
+        TECH_HUB_MYSQL_DB = getenv('TECH_HUB_MYSQL_DB')
+        TECH_HUB_ENV = getenv('TECH_HUB_ENV')
+        # uncomment the below line if you are using mysqldb
+        # self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
         self.__engine = create_engine('mariadb+mariadbconnector://{}:{}@{}/{}'.
                                       format(TECH_HUB_MYSQL_USER,
                                              TECH_HUB_MYSQL_PWD,
