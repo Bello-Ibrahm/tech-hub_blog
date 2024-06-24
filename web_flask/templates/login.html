@@ -8,11 +8,11 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="assets/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/all.min.css')}}">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="assets/css/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/icheck-bootstrap.min.css')}}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="assets/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/adminlte.min.css')}}">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -67,10 +67,10 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a href="{{ url_for('forgot_password')}}">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="{{ url_for('register')}}" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.login-card-body -->
@@ -79,10 +79,10 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="assets/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='scripts/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='scripts/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="assets/js/adminlte.min.js"></script>
+<script src="{{ url_for('static', filename='scripts/adminlte.min.js')}}"></script>
 </body>
 </html>
