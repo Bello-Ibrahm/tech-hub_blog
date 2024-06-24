@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` varchar(60) NOT NULL,
+  `id` varchar(150) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(150) NOT NULL,
@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categories` (
-  `id` varchar(60) NOT NULL,
+  `id` varchar(150) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(128) NOT NULL,
@@ -65,9 +65,9 @@ CREATE TABLE `categories` (
   `meta_title` varchar(128) NOT NULL,
   `meta_description` varchar(128) NOT NULL,
   `meta_keyword` varchar(128) NOT NULL,
-  `navbar_status` TINYINT() default 0,
-  `status` TINYINT() default 0,
-  `created_by` varchar(128) NOT NULL,
+  `navbar_status` TINYINT DEFAULT 0,
+  `status` TINYINT DEFAULT 0,
+  `created_by` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -80,7 +80,7 @@ DROP TABLE IF EXISTS `posts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `posts` (
-  `id` varchar(60) NOT NULL,
+  `id` varchar(150) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(128) NOT NULL,
@@ -90,8 +90,8 @@ CREATE TABLE `posts` (
   `meta_title` varchar(128) NOT NULL,
   `meta_description` varchar(128) NOT NULL,
   `meta_keyword` varchar(128) NOT NULL,
-  `status` TINYINT() default 0,
-  `created_by` varchar(128) NOT NULL,
+  `status` TINYINT DEFAULT 0,
+  `created_by` varchar(150) NOT NULL,
   `category_id` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
