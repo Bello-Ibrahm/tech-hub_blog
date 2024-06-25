@@ -3,6 +3,7 @@
 from models import storage
 from os import environ
 from flask import Flask, render_template
+from slugify import slugify # to handle the slugs
 app = Flask(__name__)
 
 
@@ -16,7 +17,9 @@ def close_db(error):
 @app.route('/home', strict_slashes=False)
 def index():
     """ TECH HUB BLOG is alive! """
-    return render_template('index.html')
+
+    slug = slugify("Hello world, This is a slug")
+    return render_template('index.html', slug=slug)
 
 
 @app.route('/login', strict_slashes=False)
