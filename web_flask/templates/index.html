@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/all.min.css')}}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/OverlayScrollbars.min.css')}}">
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='codemirror.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='theme/monokai.css') }}">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/adminlte.min.css')}}">
   <!-- Custom style -->
@@ -67,6 +71,7 @@
           </li>
         </ul>
       </div>
+      <a href="{{ url_for('login')}}" class="text-decoration-none text-white"> Login </a>
     </nav>
   
     <div class="row">
@@ -257,6 +262,13 @@
         </div>
         <div class="row px-2">
           <h4> Post Category Content goes here </h4>
+          <p>
+            Testing Slug -> {{ slug }}
+          </p>
+
+          <textarea name="" class="w-100" id="codeMirrorTextDesc">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem eum dolor quae.
+          </textarea>
         </div>
       </div>
       <!--X-- MAIN CONTENT --X-->
@@ -281,5 +293,20 @@
 <script src="{{ url_for('static', filename='scripts/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url_for('static', filename='scripts/adminlte.js')}}"></script>
+
+<!-- CodeMirror -->
+<script src="{{ url_for('static', filename='codemirror.js') }}"></script>
+<script src="{{ url_for('static', filename='mode/css/css.js') }}"></script>
+<script src="{{ url_for('static', filename='mode/xml/xml.js') }}"></script>
+<script src="{{ url_for('static', filename='mode/htmlmixed/htmlmixed.js') }}"></script>
+<script>
+  $(function () {
+      // CodeMirror
+      CodeMirror.fromTextArea(document.getElementById("codeMirrorTextDesc"), {
+        mode: "htmlmixed",
+        theme: "monokai"
+      });
+    });
+</script>
 </body>
 </html>

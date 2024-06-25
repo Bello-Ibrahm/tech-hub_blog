@@ -259,15 +259,15 @@
     });
 
     $(function () {
-    //Add text editor
-    $('#post-textarea').summernote()
+      //Add text editor
+      $('#post-textarea').summernote()
 
-    // CodeMirror
-    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-      mode: "htmlmixed",
-      theme: "monokai"
+      // CodeMirror
+      CodeMirror.fromTextArea(document.getElementById("codeMirrorTextDesc"), {
+        mode: "htmlmixed",
+        theme: "monokai"
+      });
     });
-  })
 </script>
 </body>
 </html>
