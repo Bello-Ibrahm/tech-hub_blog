@@ -13,7 +13,11 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/OverlayScrollbars.min.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ url_for('static', filename='summernote/summernote.min.css') }}">
-
+  
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='codemirror.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='theme/monokai.css') }}">
+  
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/responsive.bootstrap4.min.css') }}">
@@ -234,6 +238,12 @@
 <!-- Summernote -->
 <script src="{{ url_for('static', filename='summernote/summernote.min.js') }}"></script>
 
+<!-- CodeMirror -->
+<script src="{{ url_for('static', filename='codemirror.js') }}"></script>
+<script src="{{ url_for('static', filename='mode/css/css.js') }}"></script>
+<script src="{{ url_for('static', filename='mode/xml/xml.js') }}"></script>
+<script src="{{ url_for('static', filename='mode/htmlmixed/htmlmixed.js') }}"></script>
+
 <!-- AdminLTE App -->
 <script src="{{ url_for('static', filename='scripts/adminlte.js') }}"></script>
 
@@ -251,6 +261,12 @@
     $(function () {
     //Add text editor
     $('#post-textarea').summernote()
+
+    // CodeMirror
+    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+      mode: "htmlmixed",
+      theme: "monokai"
+    });
   })
 </script>
 </body>
