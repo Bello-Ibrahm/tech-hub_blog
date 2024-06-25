@@ -21,7 +21,3 @@ To start the app
 ```
 python3 -m web_flask.index
 ```
-Installing slugify
-```
-pip install python-slugify
-```
