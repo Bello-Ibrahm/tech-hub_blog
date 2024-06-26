@@ -23,7 +23,7 @@ from flask_session import Session
 load_dotenv()
 
 
-load_dotenv()
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -70,10 +70,11 @@ def tutorial(category_slug):
 
 
 @app.route('/login', methods=['POST', 'GET'], strict_slashes=False)
+@app.route('/login', methods=['POST', 'GET'], strict_slashes=False)
 def login():
     """Handles login"""
     form = LoginForm()
-    if request.method == "POST" and form.validate_on_submit():
+    if form.validate_on_submit():
         if form.email.data == 'hello@gmail.com' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
             return redirect(url_for('dashboard'))
