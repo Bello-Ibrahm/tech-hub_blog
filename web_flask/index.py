@@ -10,17 +10,11 @@ from flask import (
     flash, url_for, request, session
 )
 from dotenv import load_dotenv
-from flask_session import Session
-from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.exc import IntegrityError
-from models import storage
-from models.user import User
-from models.category import Category
-from models.post import Post
-from .forms import (
-    LoginForm, RegistrationForm,
-    CategoryForm, PostForm
-)
+from flask import Flask, render_template, redirect, flash, url_for, request
+from .forms import LoginForm, RegistrationForm 
+from slugify import slugify # to handle the slugs
+load_dotenv()
+
 
 load_dotenv()
 
@@ -73,62 +67,30 @@ def login():
     """Handles login"""
     form = LoginForm()
     if request.method == "POST" and form.validate_on_submit():
-        email = form.email.data
-        password = form.password.data
-        remember = form.remember.data
-
-        if remember:
-            session.permanent = True
-        else:
-            session.permanent = False
-        user = storage.get_by_email(User, email)
-        if user and user.verify_password(password):
-            session['logged_in'] = True
-            session['user_id'] = user.id
-            session['user_name'] = user.name
-            session['user_email'] = user.email
-
-            if user.role == 1:
-                session['admin'] = True
-                flash('Login successful!', 'success')
-                return redirect(url_for('dashboard'))
-            flash('Login successful!', 'success')
-            return redirect(url_for('index'))
+        if form.email.data == 'hello@gmail.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('dashboard'))
         else:
             flash('Invalid email or password', 'error')
             form.password.data = None  # Return empty password field
     return render_template('login.html', title='Login', form=form)
 
 
-@app.route('/logout', strict_slashes=False)
-def logout():
-    session.clear()  # Clear all session variables
-    return redirect(url_for('index'))
-
-
+<<<<<<< HEAD
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
+=======
+@app.route('/register', methods=['POST', 'GET'], strict_slashes=False)
+>>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
 def register():
     """Handles register"""
     form = RegistrationForm()
-    if form.validate_on_submit() and request.method == "POST":
-        name = form.name.data
-        email = form.email.data
-        password = form.password.data
-
-        new_user = User(name=name, email=email, password=password)
-
-        try:  # To handle Duplicate email
-            # Add the new user to the session
-            storage.new(new_user)
-
-            # Commit the session to the database
-            storage.save()
-            flash('Registration successful', 'success')
-            return redirect(url_for('login'))
-        except IntegrityError:
-            flash('Email already exists. Please use a different email address.', 'warning')
-            return render_template('register.html', form=form)
+    if form.password.data != form.confirm_password.data:
+        flash('Password does not match Confirm Password', 'error')
+<<<<<<< HEAD
     return render_template('register.html', title='Register', form=form)
+=======
+    return render_template('register.html', form=form)
+>>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
 
 
 @app.route('/forgot-password', strict_slashes=False)
