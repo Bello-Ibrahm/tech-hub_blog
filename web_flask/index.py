@@ -3,7 +3,7 @@
 from models import storage
 from os import getenv
 from dotenv import load_dotenv
-from flask import Flask, render_template, redirect, flash, url_for
+from flask import Flask, render_template, redirect, flash, url_for, request
 from .forms import LoginForm, RegistrationForm 
 from slugify import slugify # to handle the slugs
 load_dotenv()
@@ -32,7 +32,7 @@ def index():
 def login():
     """ Handles login """
     form = LoginForm()
-    if form.validate_on_submit():
+    if request.method == "POST" and form.validate_on_submit():
         if form.email.data == 'hello@gmail.com' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
             return redirect(url_for('dashboard'))
@@ -41,10 +41,13 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/register', strict_slashes=False)
+@app.route('/register', methods=['POST', 'GET'], strict_slashes=False)
 def register():
     """ Handles register """
-    return render_template('register.html')
+    form = RegistrationForm()
+    if form.password.data != form.confirm_password.data:
+        flash('Password does not match Confirm Password', 'error')
+    return render_template('register.html', form=form)
 
 
 @app.route('/forgot-password', strict_slashes=False)
