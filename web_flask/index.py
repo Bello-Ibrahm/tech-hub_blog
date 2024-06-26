@@ -3,13 +3,17 @@
 from models import storage
 from os import getenv
 from dotenv import load_dotenv
-from flask import Flask, render_template, redirect, flash, url_for, request
+from flask import Flask, render_template, redirect, flash, url_for
 from .forms import LoginForm, RegistrationForm 
 from slugify import slugify # to handle the slugs
 load_dotenv()
 
 
+load_dotenv()
+
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = getenv('SECRET_KEY')
 app.config['SECRET_KEY'] = getenv('SECRET_KEY')
 
 
@@ -29,10 +33,11 @@ def index():
 
 
 @app.route('/login', methods=['POST', 'GET'], strict_slashes=False)
+@app.route('/login', methods=['POST', 'GET'], strict_slashes=False)
 def login():
     """ Handles login """
     form = LoginForm()
-    if request.method == "POST" and form.validate_on_submit():
+    if form.validate_on_submit():
         if form.email.data == 'hello@gmail.com' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
             return redirect(url_for('dashboard'))
