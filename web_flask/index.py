@@ -1,10 +1,16 @@
 #!/usr/bin/python3
 """ Starts a Flash Web Application """
 from models import storage
-from os import environ
-from flask import Flask, render_template
+from os import getenv
+from dotenv import load_dotenv
+from flask import Flask, render_template, redirect, flash, url_for
+from .forms import LoginForm, RegistrationForm 
 from slugify import slugify # to handle the slugs
+load_dotenv()
+
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = getenv('SECRET_KEY')
 
 
 @app.teardown_appcontext
@@ -22,10 +28,17 @@ def index():
     return render_template('index.html', slug=slug)
 
 
-@app.route('/login', strict_slashes=False)
+@app.route('/login', methods=['POST', 'GET'], strict_slashes=False)
 def login():
     """ Handles login """
-    return render_template('login.html')
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'hello@gmail.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Login Unsuccessful. Please check username and password', 'error')
+    return render_template('login.html', form=form)
 
 
 @app.route('/register', strict_slashes=False)
