@@ -19,8 +19,5 @@ class LoginForm(FlaskForm):
   email=StringField('Email', validators=[DataRequired(), Email()])
   password=PasswordField('Password', validators=[DataRequired()])
   remember=BooleanField('Remember Me')
-<<<<<<< HEAD
   submit=SubmitField('Login')
-=======
-  submit=SubmitField('Login')
->>>>>>> 80d9713 (DB is now connected with the models)
+
