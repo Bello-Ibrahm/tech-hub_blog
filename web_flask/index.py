@@ -3,7 +3,7 @@
 from models import storage
 from os import getenv
 from dotenv import load_dotenv
-from flask import Flask, render_template, redirect, flash, url_for
+from flask import Flask, render_template, redirect, flash, url_for, request
 from .forms import LoginForm, RegistrationForm 
 from slugify import slugify # to handle the slugs
 load_dotenv()
@@ -37,7 +37,7 @@ def index():
 def login():
     """ Handles login """
     form = LoginForm()
-    if form.validate_on_submit():
+    if request.method == "POST" and form.validate_on_submit():
         if form.email.data == 'hello@gmail.com' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
             return redirect(url_for('dashboard'))
@@ -47,7 +47,11 @@ def login():
     return render_template('login.html', title='login', form=form)
 
 
+<<<<<<< HEAD
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
+=======
+@app.route('/register', methods=['POST', 'GET'], strict_slashes=False)
+>>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
 def register():
     """ Handles register """
     form = RegistrationForm()
@@ -55,6 +59,9 @@ def register():
         flash('Password does not match Confirm Password', 'error')
 
     return render_template('register.html', title='Register', form=form)
+=======
+    return render_template('register.html', form=form)
+>>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
 
 
 @app.route('/forgot-password', strict_slashes=False)
