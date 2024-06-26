@@ -11,7 +11,7 @@ from flask import (
 )
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, flash, url_for, request
-from .forms import LoginForm, RegistrationForm, PostForm
+from .forms import LoginForm, RegistrationForm 
 from slugify import slugify # to handle the slugs
 from models import storage
 from models.category import Category
@@ -74,7 +74,7 @@ def tutorial(category_slug):
 def login():
     """Handles login"""
     form = LoginForm()
-    if form.validate_on_submit():
+    if request.method == "POST" and form.validate_on_submit():
         if form.email.data == 'hello@gmail.com' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
             return redirect(url_for('dashboard'))
@@ -82,16 +82,6 @@ def login():
             flash('Login Unsuccessful. Please check username and password', 'error')
 
     return render_template('login.html', title='login', form=form)
-
-
-@app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
-def register():
-    """Handles register"""
-    form = RegistrationForm()
-    if form.password.data != form.confirm_password.data:
-        flash('Password does not match Confirm Password', 'error')
-
-    return render_template('register.html', title='Register', form=form)
 
 
 @app.route('/forgot-password', strict_slashes=False)
