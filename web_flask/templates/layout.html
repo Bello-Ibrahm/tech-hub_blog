@@ -24,6 +24,9 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/adminlte.min.css') }}">
+
+  <!-- sweetalert2.js -->
+  <script src="{{ url_for('static', filename='scripts/sweetalert2.js')}}"></script>
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -194,7 +197,21 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+          <script>
+            Swal.fire({
+              position: "top-end",
+              icon: "{{ category }}",
+              title: "{{ message }}",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          </script>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
         {% block content %} {% endblock %}
         
       </div><!--/. container-fluid -->
