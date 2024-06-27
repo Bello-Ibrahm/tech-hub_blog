@@ -42,6 +42,8 @@ CREATE TABLE `users` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `username` varchar(150) NOT NULL,
   `email` varchar(250) NOT NULL,
+  `image_file` varchar(250) NOT NULL,
+  `password` varchar(250) NOT NULL,
   `role` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -61,7 +63,7 @@ CREATE TABLE `categories` (
   `name` varchar(128) NOT NULL,
   `slug` varchar(250),
   `description` TEXT NOT NULL,
-  `image` varchar(250) NOT NULL,
+  `image_file` varchar(250) NOT NULL,
   `meta_title` varchar(128) NOT NULL,
   `meta_description` varchar(128) NOT NULL,
   `meta_keyword` varchar(128) NOT NULL,
