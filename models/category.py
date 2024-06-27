@@ -12,25 +12,16 @@ class Category(BaseModel, Base):
     """Representation of a category """
     
     __tablename__ = 'categories'
-    name = Column(String(150), nullable=False, unique=True)
-    slug = Column(String(250), nullable=False)
-    description = Column(Text, nullable=False)
-    image = Column(String(250), nullable=True)
-    meta_title = Column(String(200), nullable=False)
-    meta_description = Column(String(200), nullable=False)
-    meta_keyword = Column(String(200), nullable=False)
-    navbar_status = Column(Integer, default=0, nullable=False)
-    status = Column(Integer, default=0, nullable=False)
-    # created_by = Column(String(150), nullable=False)
-    created_by = Column(String(150), ForeignKey('users.id'), nullable=False)
-    creator = relationship('User', backref='categories')
-    
-    def __init__(self, *args, **kwargs):
-        """initializes category"""
-        super().__init__(*args, **kwargs)
+    name = Column(String(128), nullable=False)
+    slug = Column(String(250), nullable=True)  # Updated to match schema
+    description = Column(Text, nullable=False)  # Updated to match schema
+    image_file = Column(String(250), nullable=False, default='default.jpg')  # Updated length
+    meta_title = Column(String(128), nullable=False)
+    meta_description = Column(String(128), nullable=False)
+    meta_keyword = Column(String(128), nullable=False)  # Updated field name
+    navbar_status = Column(Boolean, default=False)  # Added to match schema
+    status = Column(Boolean, default=False)  # Added to match schema
+    created_by = Column(String(150), nullable=False)  # Added to match schema
 
-    def __setattr__(self, name, value):
-        """ Set a slug with slugify """
-        if name == "slug":
-            value = slugify(value)
-        super().__setattr__(name, value)
+    def __repr__(self):
+        return f"Category('{self.name}','{self.description}', '{self.meta_title}', '{self.meta_description}', '{self.meta_keyword}')"
