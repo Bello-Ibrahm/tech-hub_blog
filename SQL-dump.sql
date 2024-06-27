@@ -17,10 +17,16 @@ CREATE TABLE `users` (
   `id` varchar(150) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+<<<<<<< HEAD
   `name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
   `password` varchar(250) NOT NULL,
   `role` TINYINT DEFAULT 0 COMMENT '0 -> User, 1 -> Admin, 2 -> Blogger',
+=======
+  `username` varchar(150) NOT NULL,
+  `email` varchar(250) NOT NULL,
+  `role` int(10) NOT NULL,
+>>>>>>> 80d9713 (DB is now connected with the models)
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

@@ -43,6 +43,7 @@ def login():
             return redirect(url_for('dashboard'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'error')
+<<<<<<< HEAD
     return render_template('login.html', form=form)
 
 
@@ -50,17 +51,22 @@ def login():
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
 =======
 @app.route('/register', methods=['POST', 'GET'], strict_slashes=False)
->>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
+=======
+    return render_template('login.html', title='login', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
+>>>>>>> 80d9713 (DB is now connected with the models)
 def register():
     """ Handles register """
     form = RegistrationForm()
     if form.password.data != form.confirm_password.data:
         flash('Password does not match Confirm Password', 'error')
 <<<<<<< HEAD
-    return render_template('register.html', title='Register', form=form)
-=======
     return render_template('register.html', form=form)
->>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
+=======
+    return render_template('register.html', title='Register', form=form)
+>>>>>>> 80d9713 (DB is now connected with the models)
 
 
 @app.route('/forgot-password', strict_slashes=False)
@@ -72,6 +78,7 @@ def forgot_password():
 @app.route('/dashboard', strict_slashes=False)
 def dashboard():
     """ Handles admin dashboard """
+    return render_template('dashboard.html', title='dashboard')
     return render_template('dashboard.html', title='dashboard')
 
 
