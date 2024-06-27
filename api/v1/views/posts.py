@@ -34,7 +34,7 @@ def del_post(post_id):
   return jsonify({}), 200
 
 @app_views.route("/posts", strict_slashes=False, methods=['POST'])
-def create_user():
+def post_user():
   """Creating a new post"""
   data = request.get_json()
   if not data:

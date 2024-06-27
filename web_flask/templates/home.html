@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Hub Blogs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Tech Hub Blogs</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a href="{{ url_for('blog') }}">Blog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Welcome to Tech Hub Blogs</h2>
+                <p>Your go-to platform for the latest tech news, tutorials, and more!</p>
+                <a href="{{ url_for('blog') }}" class="btn">Explore Blog</a>
+            </div>
+        </section>
+        <section class="latest-posts">
+            <div class="container">
+                <h2>Latest Posts</h2>
+                <div class="posts">
+                    {% for post in posts %}
+                    <div class="post">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.excerpt }}</p>
+                        <a href="{{ url_for('view_post', post_id=post.id) }}" class="btn">Read more</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Tech Hub Blogs. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
