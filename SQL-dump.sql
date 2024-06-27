@@ -17,11 +17,10 @@ CREATE TABLE `users` (
   `id` varchar(150) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `username` varchar(150) NOT NULL,
+  `name` varchar(150) NOT NULL,
   `email` varchar(250) NOT NULL,
-  `image_file` varchar(250) NOT NULL,
-  `password` varchar(250) NOT NULL,
   `role` int(10) NOT NULL,
+  `password` varchar(250) NOT NULL
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

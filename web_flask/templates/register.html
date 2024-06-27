@@ -37,7 +37,9 @@
         {% endif %}
       {% endwith %}
       <p class="login-box-msg">Register a new membership</p>
+
       <form action="" method="POST">
+
         {{ form.hidden_tag() }}
         <div class="input-group mb-3">
           {% if form.name.errors %}
@@ -161,7 +163,3 @@
 <script src="{{ url_for('static', filename='scripts/custom.js') }}"></script>
 </body>
 </html>
-<<<<<<< HEAD
-
-=======
->>>>>>> 405d5c8 (DB is now connected with the models)

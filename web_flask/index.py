@@ -80,6 +80,18 @@ def login():
         else:
             flash('Login Unsuccessful. Please check username and password', 'error')
 
+    return render_template('login.html', title='login', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
+def register():
+    """Handles register"""
+    form = RegistrationForm()
+    if form.password.data != form.confirm_password.data:
+        flash('Password does not match Confirm Password', 'error')
+
+    return render_template('register.html', title='Register', form=form)
+
 
 @app.route('/forgot-password', strict_slashes=False)
 def forgot_password():
@@ -90,7 +102,6 @@ def forgot_password():
 @app.route('/admin/dashboard', strict_slashes=False)
 def dashboard():
     """ Handles admin dashboard """
-    return render_template('dashboard.html', title='dashboard')
     return render_template('dashboard.html', title='dashboard')
 
 

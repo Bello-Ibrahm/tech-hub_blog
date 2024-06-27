@@ -1,13 +1,14 @@
 from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
-from datetime import datetime
-from sqlalchemy.orm import relationship
-import uuid
+from os import getenv
+import sqlalchemy
+from sqlalchemy import Column, String, Integer
+from hashlib import md5
 
-Base = declarative_base()
 
-class User(Base, BaseModel):
+class User(BaseModel, Base):
+    """Representation of a user """
     __tablename__ = 'users'
     
     id = Column(String(150), primary_key=True, default=lambda: str(uuid.uuid4()))

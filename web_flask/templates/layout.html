@@ -4,12 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% if title %}
-
-    <title> {{ title }} | Tech-Hub Blog </title>
-  {% else %}
-    <title> Tech-Hub Blog </title>
-  {% endif %}
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/thb_logo_no_bg.png') }}" />
+  <title>{{ title }}</title>
+  {% endif%}
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -359,3 +355,4 @@ const deletePost = (recordVal) => {
 </script>
 </body>
 </html>
+
