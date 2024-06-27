@@ -19,6 +19,8 @@ CREATE TABLE `users` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(150) NOT NULL,
   `email` varchar(250) NOT NULL,
+  `image_file` varchar(250) NOT NULL,
+  `password` varchar(250) NOT NULL,
   `role` int(10) NOT NULL,
   `password` varchar(250) NOT NULL
   PRIMARY KEY (`id`)

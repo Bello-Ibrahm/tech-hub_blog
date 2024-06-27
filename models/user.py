@@ -6,9 +6,9 @@ import sqlalchemy
 from sqlalchemy import Column, String, Integer
 from hashlib import md5
 
+Base = declarative_base()
 
-class User(BaseModel, Base):
-    """Representation of a user """
+class User(Base, BaseModel):
     __tablename__ = 'users'
     
     id = Column(String(150), primary_key=True, default=lambda: str(uuid.uuid4()))
