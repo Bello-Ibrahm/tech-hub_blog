@@ -18,9 +18,9 @@ CREATE TABLE `users` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(150) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `password` varchar(250) NOT NULL,
-  `role` TINYINT DEFAULT 0 COMMENT '0 -> User, 1 -> Admin, 2 -> Blogger',
+  `email` varchar(250) NOT NULL,
+  `role` int(10) NOT NULL,
+  `password` varchar(250) NOT NULL
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
