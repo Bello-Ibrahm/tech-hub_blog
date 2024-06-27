@@ -11,8 +11,15 @@ from flask import (
 )
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, flash, url_for, request
-from .forms import LoginForm, RegistrationForm 
+from .forms import LoginForm, RegistrationForm, PostForm
 from slugify import slugify # to handle the slugs
+from models import storage
+from models.category import Category
+from models.post import Post
+from models.user import User
+from sqlalchemy.exc import IntegrityError
+from flask_session import Session
+
 load_dotenv()
 
 
@@ -71,26 +78,7 @@ def login():
             flash('You have been logged in!', 'success')
             return redirect(url_for('dashboard'))
         else:
-            flash('Invalid email or password', 'error')
-            form.password.data = None  # Return empty password field
-    return render_template('login.html', title='Login', form=form)
-
-
-<<<<<<< HEAD
-@app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
-=======
-@app.route('/register', methods=['POST', 'GET'], strict_slashes=False)
->>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
-def register():
-    """Handles register"""
-    form = RegistrationForm()
-    if form.password.data != form.confirm_password.data:
-        flash('Password does not match Confirm Password', 'error')
-<<<<<<< HEAD
-    return render_template('register.html', title='Register', form=form)
-=======
-    return render_template('register.html', form=form)
->>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
+            flash('Login Unsuccessful. Please check username and password', 'error')
 
 
 @app.route('/forgot-password', strict_slashes=False)
@@ -101,238 +89,15 @@ def forgot_password():
 
 @app.route('/admin/dashboard', strict_slashes=False)
 def dashboard():
-    """Handles admin dashboard"""
-    if session.get('logged_in') and session.get('admin'):
-        num_cats = storage.count(Category)
-        num_users = storage.count(User)
-        return render_template('dashboard.html', title='Dashboard', num_cats=num_cats, num_users=num_users)
-    else:
-        flash('Access Restricted', 'warning')
-        return redirect(url_for('login'))
+    """ Handles admin dashboard """
+    return render_template('dashboard.html', title='dashboard')
+    return render_template('dashboard.html', title='dashboard')
 
 
-def save_image(img):
-    """
-    Save the uploaded image to the server after resizing it to a thumbnail.
-
-    Parameters:
-    img (FileStorage): The image file object to be saved. Should be obtained
-                       from a Flask file upload.
-
-    Returns:
-    str: The filename of the saved image.
-    """
-    file_rand_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(img.filename)
-    img_fn = file_rand_hex + f_ext
-    img_path = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], img_fn)
-
-    image_resize_output = (500, 500)
-    image_result = Image.open(img)
-    image_result.thumbnail(image_resize_output)
-
-    image_result.save(img_path)
-
-    return img_fn
-
-
-@app.route('/admin/category', methods=['POST', 'GET'], strict_slashes=False)
-def category():
-    """Handles Category"""
-    if session.get('logged_in') and session.get('admin'):
-        form = CategoryForm()
-        if form.validate_on_submit() and request.method == "POST":
-            if form.image.data:
-                image_upload = save_image(form.image.data)
-
-                name = form.name.data
-                slug = form.slug.data
-                description = form.description.data
-                image = image_upload
-                meta_title = form.meta_title.data
-                meta_description = form.meta_description.data
-                meta_keyword = form.meta_keyword.data
-                navbar_status = 1 if form.navbar_status.data else 0
-                status = 1 if form.status.data else 0
-                created_by = form.created_by.data
-
-                category = Category(
-                    name=name,
-                    slug=slug,
-                    description=description,
-                    image=image,
-                    meta_title=meta_title,
-                    meta_description=meta_description,
-                    meta_keyword=meta_keyword,
-                    navbar_status=navbar_status,
-                    status=status,
-                    created_by=created_by
-                )
-            else:
-                name = form.name.data
-                slug = form.slug.data
-                description = form.description.data
-                meta_title = form.meta_title.data
-                meta_description = form.meta_description.data
-                meta_keyword = form.meta_keyword.data
-                navbar_status = 1 if form.navbar_status.data else 0
-                status = 1 if form.status.data else 0
-                created_by = form.created_by.data
-
-                category = Category(
-                    name=name,
-                    slug=slug,
-                    description=description,
-                    meta_title=meta_title,
-                    meta_description=meta_description,
-                    meta_keyword=meta_keyword,
-                    navbar_status=navbar_status,
-                    status=status,
-                    created_by=created_by
-                )
-
-            try:  # To handle Duplicate category name
-                storage.new(category)
-
-                # Commit the session to the database
-                storage.save()
-                flash('Category added successfully', 'success')
-                return redirect(url_for('category'))
-            except IntegrityError:
-                flash('Category name exists. Try another one', 'warning')
-                return render_template('category.html', title='Category', form=form)
-        return render_template('category.html', title='Category', form=form)
-    else:
-        flash('Access restricted', 'warning')
-        return redirect(url_for('login'))
-
-
-@app.route('/admin/view-category', methods=['GET'], strict_slashes=False)
-def view_category():
-    """Handles view Category"""
-    if session.get('logged_in') and session.get('admin'):
-        categories = storage.all(Category).values()
-        # Sorting categories by name
-        categories = sorted(categories, key=lambda k: k.name)
-        return render_template('view-category.html', title='View Category', categories=categories)
-    else:
-        flash('Access restricted', 'warning')
-        return redirect(url_for('login'))
-
-
-@app.route('/admin/edit-category/<string:category_id>', methods=['GET'], strict_slashes=False)
-def edit_category(category_id):
-    """Handles edit Category"""
-    if session.get('logged_in') and session.get('admin'):
-        if request.method == 'GET':
-            category = storage.get(Category, category_id)
-            if category:
-                return render_template('edit-category.html', title='Edit Category', category=category)
-            else:
-                flash('No category found', 'warning')
-                return redirect(url_for('view_category'))
-    else:
-        flash('Access restricted', 'warning')
-        return redirect(url_for('login'))
-
-
-def is_allowed_file(fn):
-    return '.' in fn and fn.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
-
-
-def remove_current_img(img):
-    # Remove current image if it exists
-    current_image_path = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], img)
-    # try:
-    if os.path.exists(current_image_path):
-        os.remove(current_image_path)
-        # return True
-    # else:
-    #     return False  # Image doesn't exist
-    # except Exception as e:
-        # flash(f'Error deleting current image: {str(e)}', 'warning')
-        # return False
-
-
-@app.route('/admin/update-category/', methods=['POST'], strict_slashes=False)
-def update_category():
-    """Handles update Category"""
-    if session.get('logged_in') and session.get('admin'):
-        if request.method == 'POST':
-            try:
-                # Handle file upload
-                if 'image' in request.files:
-                    image_file = request.files['image']
-                    if image_file.filename != '':
-                        if not is_allowed_file(image_file.filename):
-                            flash('Only JPEG, PNG, or JPG files allowed.', 'warning')
-                            return redirect(url_for('edit_category', category_id=request.form['category_id']))
-
-                        image_upload = save_image(image_file)
-
-                        category_id = request.form['category_id']
-                        name = request.form['name']
-                        slug = request.form['slug']
-                        description = request.form['description']
-                        image = image_upload
-                        meta_title = request.form['meta_title']
-                        meta_description = request.form['meta_description']
-                        meta_keyword = request.form['meta_keyword']
-                        navbar_status = 1 if 'navbar_status' in request.form else 0
-                        status = 1 if request.form.get('status') else 0
-
-                        category = storage.update(Category,
-                                                  category_id,
-                                                  name=name,
-                                                  slug=slug,
-                                                  description=description,
-                                                  image=image_upload,
-                                                  meta_title=meta_title,
-                                                  meta_description=meta_description,
-                                                  meta_keyword=meta_keyword,
-                                                  navbar_status=navbar_status,
-                                                  status=status,
-                                                  category_id=category_id
-                                                  )
-                    else:
-                        category_id = request.form['category_id']
-                        name = request.form['name']
-                        slug = request.form['slug']
-                        description = request.form['description']
-                        meta_title = request.form['meta_title']
-                        meta_description = request.form['meta_description']
-                        meta_keyword = request.form['meta_keyword']
-                        navbar_status = 1 if 'navbar_status' in request.form else 0
-                        status = 1 if request.form.get('status') else 0
-
-                        category = storage.update(Category,
-                                                  category_id,
-                                                  name=name,
-                                                  slug=slug,
-                                                  description=description,
-                                                  meta_title=meta_title,
-                                                  meta_description=meta_description,
-                                                  meta_keyword=meta_keyword,
-                                                  navbar_status=navbar_status,
-                                                  status=status,
-                                                  category_id=category_id
-                                                  )
-
-                        storage.new(category)
-
-                        # Commit the session to the database
-                        storage.save()
-                        flash('Record updated successfully', 'success')
-
-            except IntegrityError:
-                flash('Category name exists. Use another one', 'warning')
-                storage.reload()
-                return redirect(url_for('edit_category', category_id=category_id))
-
-        return redirect(url_for('view_category'))
-    else:
-        flash('Access restricted', 'warning')
-        return redirect(url_for('login'))
+@app.route('/user', strict_slashes=False)
+def user():
+    """ Handles User """
+    return render_template('user.html')
 
 
 @app.route('/admin/delete-category/<string:category_id>', methods=['GET'])
@@ -343,6 +108,13 @@ def delete_category(category_id):
             category = storage.get(Category, category_id)
             if category:
                 try:
+                    import os
+                    
+                    def remove_current_img(image_path):
+                        """Remove the current image"""
+                        if os.path.exists(image_path):
+                            os.remove(image_path)
+                    
                     if category.image:
                         remove_current_img(category.image)
                     # Assuming storage.delete() handles deletion

@@ -1,37 +1,28 @@
 #!/usr/bin/python3
 """ holds class Post"""
+""" holds class Post"""
 
 from models.base_model import BaseModel, Base
 import sqlalchemy
-from sqlalchemy import Column, String, Integer, Text, ForeignKey
+from sqlalchemy import Column, String, Integer, Text, ForeignKey, DateTime
+from datetime import datetime
 from sqlalchemy.orm import relationship
-from slugify import slugify # to handle the slugs
+
 
 
 class Post(BaseModel, Base):
     """Representation of a post """
     __tablename__ = 'posts'
-    name = Column(String(150), nullable=False, unique=True)
-    slug = Column(String(250), nullable=False)
-    description = Column(Text, nullable=False)
-    yt_iframe = Column(String(150), nullable=True)
-    meta_title = Column(String(200), nullable=False)
-    meta_description = Column(String(200), nullable=False)
-    meta_keyword = Column(String(200), nullable=False)
-    status = Column(Integer, default=0, nullable=False)
-    category_id = Column(String(150), ForeignKey('categories.id'), nullable=False)
-    created_by = Column(String(150), ForeignKey('users.id'), nullable=False)
-    creator = relationship('Category', backref='posts', uselist=True)
     
-    def __init__(self, *args, **kwargs):
-        """initializes category"""
-        super().__init__(*args, **kwargs)
-
-    def __setattr__(self, name, value):
-        """ Set a slug with slugify """
-        if name == "slug":
-            value = slugify(value)
-        super().__setattr__(name, value)
-
+    id = Column(Integer, primary_key=True)
+    title = Column(String(100), nullable=False)
+    date_posted = Column(DateTime, nullable=False, default=datetime.utcnow)
+    content = Column(Text, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False) # user here is refrencing the table name not the class spcially when we refrencing the foriegn key is always referring to the table name
+    category_id = Column(Integer, ForeignKey('categories.id'), nullable=True)
+    
+    #relationship
+    category = relationship('Category', backref='posts', lazy=True)
+    
     def __repr__(self):
         return f'<Category(id={self.id}, name={self.name})>'
