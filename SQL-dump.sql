@@ -40,7 +40,7 @@ CREATE TABLE `users` (
   `id` varchar(150) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(150) NOT NULL,
+  `username` varchar(150) NOT NULL,
   `email` varchar(250) NOT NULL,
   `role` int(10) NOT NULL,
   PRIMARY KEY (`id`)
