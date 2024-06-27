@@ -1,16 +1,14 @@
-#!/usr/bin/python3
-""" holds class User"""
-
-import models
+from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String, Integer
 from hashlib import md5
 
+Base = declarative_base()
 
-class User(BaseModel, Base):
-    """Representation of a user """
+class User(Base, BaseModel):
     __tablename__ = 'users'
     name = Column(String(150), nullable=False)
     email = Column(String(150), nullable=False)
