@@ -19,3 +19,7 @@ class LoginForm(FlaskForm):
   email=StringField('Email', validators=[DataRequired(), Email()])
   password=PasswordField('Password', validators=[DataRequired()])
   remember=BooleanField('Remember Me')
+<<<<<<< HEAD
+=======
+  submit=SubmitField('Login')
+>>>>>>> 9b2d7b6 (edits in forms.py)
