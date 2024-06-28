@@ -11,7 +11,7 @@ from flask import (
 )
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, flash, url_for, request
-from .forms import LoginForm, RegistrationForm 
+from .forms import LoginForm, RegistrationForm, PostForm
 from slugify import slugify # to handle the slugs
 from models import storage
 from models.category import Category
