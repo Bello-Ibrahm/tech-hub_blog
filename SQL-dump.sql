@@ -17,12 +17,7 @@ CREATE TABLE `users` (
   `id` varchar(150) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-<<<<<<< HEAD
-  `username` varchar(150) NOT NULL,
-=======
-<<<<<<< HEAD
   `name` varchar(150) NOT NULL,
->>>>>>> 15407c0
   `email` varchar(250) NOT NULL,
   `image_file` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
@@ -40,21 +35,20 @@ CREATE TABLE `categories` (
   `name` varchar(150) NOT NULL,
   `slug` varchar(250) NOT NULL,
   `description` TEXT NOT NULL,
-<<<<<<< HEAD
+
   `image_file` varchar(250) NOT NULL,
   `meta_title` varchar(128) NOT NULL,
   `meta_description` varchar(128) NOT NULL,
   `meta_keyword` varchar(128) NOT NULL,
   `navbar_status` TINYINT DEFAULT 0,
   `status` TINYINT DEFAULT 0,
-=======
+
   `image` varchar(250) NOT NULL,
   `meta_title` varchar(200) NOT NULL,
   `meta_description` varchar(200) NOT NULL,
   `meta_keyword` varchar(200) NOT NULL,
   `navbar_status` TINYINT DEFAULT 0 COMMENT '0 -> Navbar is shown, 1 -> hidden',
   `status` TINYINT DEFAULT 0 COMMENT '0 -> shown, 1 -> hidden',
->>>>>>> 15407c0
   `created_by` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_categories_created_by` (`created_by`),
