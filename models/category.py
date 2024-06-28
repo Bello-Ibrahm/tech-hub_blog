@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ holds class Category"""
-""" holds class Category"""
+
 
 import models
 from models.base_model import BaseModel, Base
@@ -12,6 +12,7 @@ class Category(BaseModel, Base):
     
     __tablename__ = 'categories'
     name = Column(String(128), nullable=False)
+<<<<<<< HEAD
     slug = Column(String(128), nullable=False)
     description = Column(String(128), nullable=False)
     image_file = Column(String(20), unique=True, nullable=False, default='default.jpg')
@@ -22,3 +23,18 @@ class Category(BaseModel, Base):
 
     def __repr__(self):
         return f"Category('{self.name}','{self.description}', '{self.meta_title}', '{self.meta_description}', '{self.meta_keywords}')"
+=======
+
+    slug = Column(String(250), nullable=True)  # Updated to match schema
+    description = Column(Text, nullable=False)  # Updated to match schema
+    image_file = Column(String(250), nullable=False, default='default.jpg')  # Updated length
+    meta_title = Column(String(128), nullable=False)
+    meta_description = Column(String(128), nullable=False)
+    meta_keyword = Column(String(128), nullable=False)  # Updated field name
+    navbar_status = Column(Boolean, default=False)  # Added to match schema
+    status = Column(Boolean, default=False)  # Added to match schema
+    created_by = Column(String(150), nullable=False)  # Added to match schema
+
+    def __repr__(self):
+        return f"Category('{self.name}','{self.description}', '{self.meta_title}', '{self.meta_description}', '{self.meta_keyword}')"
+>>>>>>> 8c017ba (edits in category.py file)
