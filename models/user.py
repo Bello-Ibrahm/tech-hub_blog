@@ -6,9 +6,10 @@ import sqlalchemy
 from sqlalchemy import Column, String, Integer
 from hashlib import md5
 
-Base = declarative_base()
 
-class User(Base, BaseModel):
+class User(BaseModel, Base):
+    """Representation of a user """
+    
     __tablename__ = 'users'
     name = Column(String(150), nullable=False)
     email = Column(String(150), nullable=False)
