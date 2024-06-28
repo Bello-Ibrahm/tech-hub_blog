@@ -14,7 +14,6 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = getenv('SECRET_KEY')
-app.config['SECRET_KEY'] = getenv('SECRET_KEY')
 
 
 @app.teardown_appcontext
@@ -47,11 +46,7 @@ def login():
     return render_template('login.html', title='login', form=form)
 
 
-<<<<<<< HEAD
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
-=======
-@app.route('/register', methods=['POST', 'GET'], strict_slashes=False)
->>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
 def register():
     """ Handles register """
     form = RegistrationForm()
@@ -59,9 +54,6 @@ def register():
         flash('Password does not match Confirm Password', 'error')
 
     return render_template('register.html', title='Register', form=form)
-=======
-    return render_template('register.html', form=form)
->>>>>>> 129d865 (Integrate registration form from the flask-wtf for testing purpose)
 
 
 @app.route('/forgot-password', strict_slashes=False)
