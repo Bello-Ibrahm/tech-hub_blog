@@ -6,8 +6,16 @@ import sqlalchemy
 from sqlalchemy import Column, String
 
 
+<<<<<<< HEAD
 class User(BaseModel, Base):
     """Representation of a user """
+=======
+
+class User(Base, BaseModel):
+
+    """Representation of a user """
+
+>>>>>>> f89b7e3 (edits in users.py)
     __tablename__ = 'users'
 <<<<<<< HEAD
     
@@ -23,14 +31,7 @@ class User(BaseModel, Base):
     user = relationship('User', backref="posts", lazy=True)
 
 
-    # def __init__(self, username, email, image_file, password, role):
-    #     self.username = username
-    #     self.email = email
-    #     self.image_file = image_file
-    #     self.password = password
-    #     self.role = role
-    
-    
+
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
