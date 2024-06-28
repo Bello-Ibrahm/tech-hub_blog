@@ -14,7 +14,10 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = getenv('SECRET_KEY')
+<<<<<<< HEAD
 app.config['SECRET_KEY'] = getenv('SECRET_KEY')
+=======
+>>>>>>> 15407c0
 
 
 @app.teardown_appcontext
@@ -44,6 +47,7 @@ def login():
         else:
             flash('Login Unsuccessful. Please check username and password', 'error')
 <<<<<<< HEAD
+<<<<<<< HEAD
     return render_template('login.html', form=form)
 
 
@@ -57,16 +61,28 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
 >>>>>>> 80d9713 (DB is now connected with the models)
+=======
+
+    return render_template('login.html', title='login', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
+>>>>>>> 15407c0
 def register():
     """ Handles register """
     form = RegistrationForm()
     if form.password.data != form.confirm_password.data:
         flash('Password does not match Confirm Password', 'error')
 <<<<<<< HEAD
+<<<<<<< HEAD
     return render_template('register.html', form=form)
 =======
     return render_template('register.html', title='Register', form=form)
 >>>>>>> 80d9713 (DB is now connected with the models)
+=======
+
+    return render_template('register.html', title='Register', form=form)
+>>>>>>> 15407c0
 
 
 @app.route('/forgot-password', strict_slashes=False)
@@ -79,7 +95,10 @@ def forgot_password():
 def dashboard():
     """ Handles admin dashboard """
     return render_template('dashboard.html', title='dashboard')
+<<<<<<< HEAD
     return render_template('dashboard.html', title='dashboard')
+=======
+>>>>>>> 15407c0
 
 
 @app.route('/user', strict_slashes=False)

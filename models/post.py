@@ -6,15 +6,23 @@ import models
 from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
+<<<<<<< HEAD
 from sqlalchemy import Column, String, Text, ForeignKey, DateTime
 from datetime import datetime
 from sqlalchemy.orm import relationship
+=======
+from sqlalchemy import Column, String, Integer, Text, ForeignKey, DateTime
+from datetime import datetime
+from sqlalchemy.orm import relationship
+
+>>>>>>> 15407c0
 
 
 class Post(BaseModel, Base):
     """Representation of a post """
     __tablename__ = 'posts'
     
+<<<<<<< HEAD
     title = Column(String(100), nullable=False)
     date_posted = Column(DateTime, nullable=False, default=datetime.utcnow)
     content = Column(Text, nullable=False)
@@ -29,5 +37,17 @@ class Post(BaseModel, Base):
     post_id = Column(ForeignKey('posts.id'), nullable=False)
     user = relationship('User', backref="posts", lazy=True)
 
+=======
+    id = Column(Integer, primary_key=True)
+    title = Column(String(100), nullable=False)
+    date_posted = Column(DateTime, nullable=False, default=datetime.utcnow)
+    content = Column(Text, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False) # user here is refrencing the table name not the class spcially when we refrencing the foriegn key is always referring to the table name
+    category_id = Column(Integer, ForeignKey('categories.id'), nullable=True)
+    
+    #relationship
+    category = relationship('Category', backref='posts', lazy=True)
+    
+>>>>>>> 15407c0
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"

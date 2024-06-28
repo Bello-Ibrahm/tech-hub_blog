@@ -7,7 +7,12 @@ import uuid
 
 Base = declarative_base()
 
+<<<<<<< HEAD
 class User(Base, BaseModel):
+=======
+class User(BaseModel, Base):
+    """Representation of a user """
+>>>>>>> 15407c0
     __tablename__ = 'users'
     
     id = Column(String(150), primary_key=True, default=lambda: str(uuid.uuid4()))
