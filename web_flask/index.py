@@ -70,7 +70,6 @@ def tutorial(category_slug):
 
 
 @app.route('/login', methods=['POST', 'GET'], strict_slashes=False)
-@app.route('/login', methods=['POST', 'GET'], strict_slashes=False)
 def login():
     """Handles login"""
     form = LoginForm()
@@ -80,8 +79,6 @@ def login():
             return redirect(url_for('dashboard'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'error')
-
-    return render_template('login.html', title='login', form=form)
 
 
 @app.route('/forgot-password', strict_slashes=False)
