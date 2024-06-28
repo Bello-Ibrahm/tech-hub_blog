@@ -7,12 +7,11 @@ import uuid
 
 Base = declarative_base()
 
-<<<<<<< HEAD
+
 class User(Base, BaseModel):
-=======
-class User(BaseModel, Base):
+
     """Representation of a user """
->>>>>>> 15407c0
+
     __tablename__ = 'users'
     
     id = Column(String(150), primary_key=True, default=lambda: str(uuid.uuid4()))
@@ -27,14 +26,7 @@ class User(BaseModel, Base):
     user = relationship('User', backref="posts", lazy=True)
 
 
-    # def __init__(self, username, email, image_file, password, role):
-    #     self.username = username
-    #     self.email = email
-    #     self.image_file = image_file
-    #     self.password = password
-    #     self.role = role
-    
-    
+
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
