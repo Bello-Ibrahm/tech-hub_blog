@@ -78,9 +78,17 @@ def login():
             flash('You have been logged in!', 'success')
             return redirect(url_for('dashboard'))
         else:
-<<<<<<< HEAD
             flash('Login Unsuccessful. Please check username and password', 'error')
+    return render_template('login.html', title='login', form=form)
 
+
+
+@app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
+def register():
+    """Handles register"""
+    form = RegistrationForm()
+    if form.password.data != form.confirm_password.data:
+        flash('Password does not match Confirm Password', 'error')
 
 @app.route('/forgot-password', strict_slashes=False)
 def forgot_password():
