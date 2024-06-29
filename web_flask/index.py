@@ -78,6 +78,7 @@ def login():
             flash('You have been logged in!', 'success')
             return redirect(url_for('dashboard'))
         else:
+<<<<<<< HEAD
             flash('Login Unsuccessful. Please check username and password', 'error')
 
 
