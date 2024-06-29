@@ -37,13 +37,9 @@ def login():
             flash('You have been logged in!', 'success')
             return redirect(url_for('dashboard'))
         else:
-<<<<<<< HEAD
             flash('Login Unsuccessful. Please check username and password', 'error')
+    return render_template('login.html', title='login', form=form)
 
-    return render_template('login.html', form=form)
-=======
-            return render_template('login.html', form=form)
->>>>>>> 8807fd3 (chore: Remove unnecessary code and fix login form submission issue)
 
 
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
@@ -52,14 +48,9 @@ def register():
     form = RegistrationForm()
     if form.password.data != form.confirm_password.data:
         flash('Password does not match Confirm Password', 'error')
-<<<<<<< HEAD
-=======
-
     return render_template('register.html', title='Register', form=form)
 
->>>>>>> 8807fd3 (chore: Remove unnecessary code and fix login form submission issue)
 
-    return render_template('register.html', form=form)
 
 @app.route('/forgot-password', strict_slashes=False)
 def forgot_password():
