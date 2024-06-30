@@ -1,42 +1,28 @@
-from sqlalchemy import Column, String, Integer, DateTime
-from sqlalchemy.ext.declarative import declarative_base
+#!/usr/bin/python3
+""" holds class User"""
+
+import models
 from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Integer
+from hashlib import md5
 
-
-<<<<<<< HEAD
 class User(BaseModel, Base):
     """Representation of a user """
-=======
-
-class User(Base, BaseModel):
-
-    """Representation of a user """
-
->>>>>>> f89b7e3 (edits in users.py)
-    __tablename__ = 'users'
-<<<<<<< HEAD
     
-    id = Column(String(150), primary_key=True, default=lambda: str(uuid.uuid4()))
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, nullable=False, onupdate=datetime.utcnow)
-    username = Column(String(150), nullable=False)
-    email = Column(String(250), nullable=False)
-    image_file = Column(String(250), nullable=False, default='default.jpg')
-    password = Column(String(250), nullable=False)
-    role = Column(Integer, nullable=False)
-    posts = relationship('Post', backref='auther', lazy=True)
-    user = relationship('User', backref="posts", lazy=True)
-
-
-
-    def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
-
-=======
-    email = Column(String(150), nullable=False)
+    __tablename__ = 'users'
     name = Column(String(150), nullable=False)
-    role = Column(String(10), nullable=False)
->>>>>>> 15407c0 (Save changes before switching branches)
+    email = Column(String(150), nullable=False)
+    password = Column(String(128), nullable=False)
+    role = Column(Integer, default=0, nullable=False)
+
+    def __init__(self, *args, **kwargs):
+        """initializes user"""
+        super().__init__(*args, **kwargs)
+
+    def __setattr__(self, name, value):
+        """sets a password with md5 encryption"""
+        if name == "password":
+            value = md5(value.encode()).hexdigest()
+        super().__setattr__(name, value)

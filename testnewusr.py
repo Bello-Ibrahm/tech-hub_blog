@@ -1,11 +1,11 @@
+
 from models.user import User
 from models import storage
 
 # Create a new user object
 new_user = User(
-    username='john_doe',
+    name='john_doe',
     email='john.doe@example.com',
-    image_file='default.jpg',
     password='hashed_password'  # Ensure the password is hashed
 )
 
@@ -14,3 +14,4 @@ storage.new(new_user)
 storage.save()
 
 print("User added successfully")
+

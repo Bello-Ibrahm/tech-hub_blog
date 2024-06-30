@@ -22,11 +22,9 @@ CREATE TABLE `users` (
 =======
 >>>>>>> 3948fef (edits in SQL_dump.sql file)
   `name` varchar(150) NOT NULL,
-  `email` varchar(250) NOT NULL,
-  `image_file` varchar(250) NOT NULL,
+  `email` varchar(150) NOT NULL,
   `password` varchar(250) NOT NULL,
-  `role` int(10) NOT NULL,
-  `password` varchar(250) NOT NULL
+  `role` TINYINT DEFAULT 0 COMMENT '0 -> User, 1 -> Admin, 2 -> Blogger',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,19 +37,6 @@ CREATE TABLE `categories` (
   `name` varchar(150) NOT NULL UNIQUE,
   `slug` varchar(250) NOT NULL,
   `description` TEXT NOT NULL,
-<<<<<<< HEAD
-=======
-
->>>>>>> 3948fef (edits in SQL_dump.sql file)
-  `image_file` varchar(250) NOT NULL,
-  `meta_title` varchar(128) NOT NULL,
-  `meta_description` varchar(128) NOT NULL,
-  `meta_keyword` varchar(128) NOT NULL,
-  `navbar_status` TINYINT DEFAULT 0,
-  `status` TINYINT DEFAULT 0,
-<<<<<<< HEAD
-=======
-
   `image` varchar(250) NOT NULL,
   `meta_title` varchar(200) NOT NULL,
   `meta_description` varchar(200) NOT NULL,
