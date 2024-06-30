@@ -102,6 +102,19 @@ class DBStorage:
                 return value
         return None
 
+    def update(self, cls, id, **kwargs):
+        """
+        Update the object based on the class name and its ID
+        with the provided kwargs.
+        """
+        obj = self.get(cls, id)
+        if obj:
+            for key, value in kwargs.items():
+                setattr(obj, key, value)
+            self.save()  # Commit the changes to the database
+            return obj
+        return None
+
     def count(self, cls=None):
         """
         count the number of objects in storage
