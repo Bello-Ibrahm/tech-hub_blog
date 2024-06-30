@@ -4,21 +4,24 @@ from models import storage
 from models.user import User
 from models.category import Category
 from models.post import Post
-from os import getenv
+import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, flash, url_for, request, session
 from .forms import LoginForm, RegistrationForm, CategoryForm, PostForm
 from flask_session import Session
 import hashlib
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import IntegrityError
 from datetime import timedelta
+from werkzeug.utils import secure_filename
 load_dotenv()
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = getenv('SECRET_KEY')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['SESSION_TYPE'] = 'filesystem' 
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+app.config['UPLOAD_FOLDER'] = '/static/images/'
 Session(app)
 
 
@@ -110,7 +113,7 @@ def forgot_password():
     return render_template('forgot-password.html', title='Forgot password')
 
 
-@app.route('/dashboard', strict_slashes=False)
+@app.route('/admin/dashboard', strict_slashes=False)
 def dashboard():
     """ Handles admin dashboard """
     if session.get('logged_in'):
@@ -230,18 +233,82 @@ def view_category():
         categories = storage.all(Category).values()
         # Sorting categories by name
         categories = sorted(categories, key=lambda k: k.name)
-
         return render_template('view-category.html', title='View Category', categories=categories)
     else:
         flash('Please login to access the dashboard', 'warning')
         return redirect(url_for('login'))
 
 
-@app.route('/admin/edit-category/<string:category_id>', methods=['POST', 'GET'], strict_slashes=False)
+@app.route('/admin/edit-category/<string:category_id>', methods=['GET'], strict_slashes=False)
 def edit_category(category_id):
-    """ Handles view Category """
-    return render_template('edit-category.html', title='Edit Category')
+    """ Handles edit Category """
+    if session.get('logged_in'):
+        if request.method == 'GET':
+            category = storage.get(Category, category_id)
+            if category:
+                return render_template('edit-category.html', title='Edit Category', category=category)
+            else:
+                flash('No category found', 'warning')
+                return redirect(url_for('view_category'))
+    else:
+        flash('Please login to access the dashboard', 'warning')
+        return redirect(url_for('login'))
 
+
+@app.route('/admin/update-category/', methods=['POST'], strict_slashes=False)
+def update_category():
+    """ Handles update Category """
+    if 'logged_in' in session and session['logged_in']:
+        if request.method == 'POST':
+            # Handle file upload
+            if 'image' in request.files:
+                image_file = request.files['image']
+                if image_file.filename != '':
+                    filename = secure_filename(image_file.filename)
+                    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    image_file.save(filepath)
+                else:
+                    filepath = app.config['UPLOAD_FOLDER'] + 'default.png'
+
+            category_id = request.form['category_id']
+            name = request.form['name']
+            slug = request.form['slug']
+            description = request.form['description']
+            image = filepath
+            # image = request.files['image']
+            meta_title = request.form['meta_title']
+            meta_description = request.form['meta_description']
+            meta_keyword = request.form['meta_keyword']
+            navbar_status = 1 if 'navbar_status' in request.form else 0
+            # navbar_status = 1 if request.form.get('navbar_status') else 0
+            status = 1 if request.form.get('status') else 0
+
+            category = storage.update(Category,
+                category_id,
+                name=name, 
+                slug=slug,
+                description=description,
+                image=image,
+                meta_title=meta_title,
+                meta_description=meta_description,
+                meta_keyword=meta_keyword,
+                navbar_status=navbar_status,
+                status=status,
+                category_id=category_id
+            )
+
+            # Add the new user to the session
+            storage.new(category)
+    
+            # Commit the session to the database
+            storage.save()
+            flash('Record updated successfully', 'success')
+        return redirect(url_for('view_category'))
+            
+    else:
+        flash('Please login to access the dashboard', 'warning')
+        return redirect(url_for('login'))
+    
 
 @app.route('/admin/delete-category/<string:category_id>', methods=['GET'])
 def delete_category(category_id):
