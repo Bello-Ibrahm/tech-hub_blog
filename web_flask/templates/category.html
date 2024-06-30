@@ -12,50 +12,67 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <form action="" method="post">
+            <form action="" method="POST" enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
                 <div class="mb-3">
-                    <label for=""> Category name</label>
-                    <input type="text" name="name" class="form-control" required>
+                  {{ form.name.label() }}
+                  {{ form.name(class="form-control") }}
+                  <!-- <label for=""> Category name</label> -->
+                  <!-- <input type="text" name="name" class="form-control" required> -->
                 </div>
                 <div class="mb-3">
-                    <label for=""> Slug</label>
-                    <input type="text" name="slug" class="form-control" required>
+                  {{ form.slug.label() }}
+                  {{ form.slug(class="form-control") }}
+                    <!-- <label for=""> Slug</label>
+                    <input type="text" name="slug" class="form-control" required> -->
                 </div>
                 <div class="mb-3">
-                    <label for=""> Description</label>
-                    <textarea  name="description" rows="5" class="form-control"></textarea>
+                  {{ form.description.label() }}
+                  {{ form.description(class="form-control", id="post-textarea") }}
+                    <!-- <label for=""> Descriptions</label>
+                    <textarea  name="description" id="post-textarea" rows="5" class="form-control"></textarea> -->
                 </div>
                 <div class="mb-3">
-                    <label for=""> Image</label>
-                    <input type="file" name="image" class="form-control" required>
+                  {{ form.image.label() }}
+                  {{ form.image(class="form-control", type="file") }}
+                    <!-- <label for=""> Image</label>
+                    <input type="file" name="image" class="form-control" required> -->
                 </div>
 
                 <h6>SEO Tags</h6>
                 <div class="mb-3">
-                    <label for=""> Meta Title</label>
-                    <input type="text" name="meta_tilte" class="form-control" required>
+                  {{ form.meta_title.label() }}
+                  {{ form.meta_title(class="form-control") }}
+                    <!-- <label for=""> Meta Title</label>
+                    <input type="text" name="meta_tilte" class="form-control" required> -->
                 </div>
                 <div class="mb-3">
-                    <label for=""> Meta Description</label>
-                    <textarea name="meta_description" rows="3" class="form-control"> </textarea>
+                  {{ form.meta_description.label() }}
+                  {{ form.meta_description(class="form-control") }}
                 </div>
                 <div class="mb-3">
-                    <label for=""> Meta Keywords</label>
-                    <textarea name="meta_keyword" rows="3" class="form-control"> </textarea>
+                  {{ form.meta_keyword.label() }}
+                  {{ form.meta_keyword(class="form-control") }}
                 </div>
 
                 <h6>Status Code</h6>
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <label for="">Navbar Status</label>
-                        <input type="checkbox" name="navbar_status">
+                      {{ form.navbar_status.label() }}
+                      {{ form.navbar_status(type="checkbox") }}
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="">Status</label>
-                        <input type="checkbox" name="status">
+                      {{ form.status.label() }}
+                      {{ form.status(type="checkbox") }}
+
+                      {% if session.get('user_id') %}
+                        {{ form.created_by(type="hidden", value=session.get('user_id')) }}
+                      {% else %}
+                        {{ form.created_by(type="hidden", value="") }}
+                      {% endif %}
                     </div>
                     <div class="col-md-6 mb-3">
-                        <button name="save_category" type="submit" class="btn btn-primary float-right">Save Category</button>
+                      {{ form.submit(class="btn btn-primary float-right") }}
                     </div>
                 </div>
             </form>
