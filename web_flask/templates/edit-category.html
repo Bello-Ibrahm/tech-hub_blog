@@ -12,52 +12,68 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <form action="" method="post">
-                <div class="mb-3">
-                    <label for=""> Category name</label>
-                    <input type="text" name="name" value="" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for=""> Slug</label>
-                    <input type="text" name="slug" value="" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for=""> Description</label>
-                    <textarea  name="description" rows="5" class="form-control"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for=""> Image</label>
-                    <input type="file" name="image" class="form-control" required>
-                </div>
+            <form action="{{ url_for('update_category', category_id=category_id) }}" method="POST" enctype="multipart/form-data">
+              {% if category %}
+                  <div class="mb-3">
+                      <label for="">* Category name</label>
+                      <input type="text" name="name" value="{{ category.name}}" class="form-control" required>
+                      <input type="hidden" name="category_id" value="{{ category.id}}" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for=""> Slug</label>
+                      <input type="text" name="slug" value="{{ category.slug }}" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="">* Description</label>
+                      <textarea  name="description" id="post-textarea" class="form-control"required>
+                        {{ category.description }}
+                      </textarea>
+                  </div>
+                  <div class="mb-3">
+                      <label for=""> Image</label>
+                      <input type="file" name="image" value="{{ category.image }}" class="form-control">
+                  </div>
 
-                <h6>SEO Tags</h6>
-                <div class="mb-3">
-                    <label for=""> Meta Title</label>
-                    <input type="text" name="meta_tilte" value="" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for=""> Meta Description</label>
-                    <textarea name="meta_description" rows="3" class="form-control"> </textarea>
-                </div>
-                <div class="mb-3">
-                    <label for=""> Meta Keywords</label>
-                    <textarea name="meta_keyword" rows="3" class="form-control"> </textarea>
-                </div>
+                  <h6>SEO Tags</h6>
+                  <div class="mb-3">
+                      <label for="">* Meta Title</label>
+                      <input type="text" name="meta_title" value="{{ category.meta_title }}" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for=""> * Meta Description</label>
+                      <input name="meta_description" value="{{ category.meta_description }}" class="form-control"required>
+                  </div>
+                  <div class="mb-3">
+                      <label for=""> * Meta Keywords</label>
+                      <input name="meta_keyword" value="{{ category.meta_keyword }}" class="form-control"required> 
+                  </div>
 
-                <h6>Status Code</h6>
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <label for="">Navbar Status</label>
-                        <input type="checkbox" name="navbar_status">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="">Status</label>
-                        <input type="checkbox" name="status">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <button name="update_category" type="submit" class="btn btn-primary float-right">Update changes</button>
-                    </div>
-                </div>
+                  <h6>Status Code</h6>
+                  <div class="row">
+                      <div class="col-md-4 mb-3">
+                          <label for="">Navbar Status</label>
+                          <input type="checkbox"
+                           {% if category.navbar_status == 1 %}
+                            checked
+                           {% endif %}
+                           name="navbar_status"
+                           >
+                      </div>
+                      <div class="col-md-4 mb-3">
+                          <label for="">Status</label>
+                          <input type="checkbox" 
+                          {% if category.status == 1 %}
+                            checked
+                          {% endif %}
+                            name="status"
+                          >
+                      </div>
+                      <div class="col-md-4 mb-3">
+                          <a href="{{ url_for('view_category') }}" class="btn btn-default">Back</a>
+                          <button type="submit" class="btn btn-primary float-right">Update changes</button>
+                      </div>
+                  </div>
+              {% endif %}
             </form>
           </div>
         </div>
