@@ -43,6 +43,9 @@
           {{ form.name(class="form-control", placeholder="Full Name") }}
           <div class="input-group-append">
             <div class="input-group-text">
+              {% for error in form.name.errors %}
+                <span class="text-danger">{{ error }}</span>
+              {% endfor %}
               <span class="fas fa-user"></span>
             </div>
           </div>
@@ -51,24 +54,31 @@
           {{ form.email(class="form-control", placeholder="Email") }}
           <div class="input-group-append">
             <div class="input-group-text">
+              {% for error in form.email.errors %}
+                <span class="text-danger">{{ error }}</span>
+              {% endfor %}
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
         <div class="input-group mb-3">
           {{ form.password(class="form-control", type="password", placeholder="Password") }}
-          <!-- <input type="password" class="form-control" placeholder="Password"> -->
           <div class="input-group-append">
             <div class="input-group-text">
+              {% for error in form.password.errors %}
+                <span class="text-danger">{{ error }}</span>
+              {% endfor %}
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
         <div class="input-group mb-3">
           {{ form.confirm_password(class="form-control", type="password", placeholder="Confirm Password") }}
-          <!-- <input type="password" class="form-control" placeholder="Retype password"> -->
           <div class="input-group-append">
             <div class="input-group-text">
+              {% for error in form.confirm_password.errors %}
+                <span class="text-danger">{{ error }}</span>
+              {% endfor %}
               <span class="fas fa-lock"></span>
             </div>
           </div>
