@@ -7,37 +7,54 @@
     <div class="card">
       <div class="card-header">
         <h1 class="card-title">View Category</h1>
-        <a href="category.html" class="btn btn-primary float-right">Add Category</a>
+        <a href="{{ url_for('category') }}" class="btn btn-primary float-right">Add Category</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <table id="example1" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Category Name</th>
-                        <th>Image</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>PHP</td>
-                        <td><img src="" alt="category_image"></td>
-                        <td>
-                            Hidden/Visible
-                        </td>
-                        <td>
-                            <a href="edit-category.html?id=" class="btn btn-success">Edit</a>
-                            <a href="delete-category.html?id=" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <form action="" method="GET">
+              <table id="example1" class="table table-bordered table-hover">
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>Category Name</th>
+                          <th>Image</th>
+                          <th>Navbar status</th>
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% if categories %}
+                      {% for category in categories %}
+                      <tr>
+                          <td>{{ loop.index }}</td>
+                          <td>{{ category.name }}</td>
+                          <td><img src="{{ category.image }}" alt="Category image"></td>
+                          <td>
+                            {% if category.navbar_status == 1 %}
+                              Hidden
+                            {% else %}
+                              Visible
+                            {% endif %}
+                          </td>                      
+                          <td>
+                            <div id="recordList">
+                              <a href="{{ url_for('edit_category', category_id=category.id) }}" class="btn btn-primary">Edit</a>
+                              <a data-record-id="{{ category.id }}" class="btn btn-danger deleteButton">Delete</a>
+                              <!-- <a href="{{ url_for('delete_category', category_id=category.id) }}" id="deleteButton" class="btn btn-danger">Delete</a> -->
+                            </div>
+                       </td>
+                      </tr>
+                      {% endfor %}
+                    {% else %}
+                      <tr>
+                        <td colspan="5" class="text-center">No categories found</td>
+                      </tr>
+                    {% endif %}
+                  </tbody>
+              </table>
+            </form>
           </div>
         </div>
         <!-- /.row -->
