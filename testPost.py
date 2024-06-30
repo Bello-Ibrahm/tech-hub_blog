@@ -28,3 +28,5 @@ new_post = Post(
 Session = sessionmaker(bind=engine)
 session = Session()
 session.add(new_post)
+
+print( new_post, "successfully added new post")
