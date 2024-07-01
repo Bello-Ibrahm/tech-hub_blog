@@ -17,8 +17,7 @@ class Category(BaseModel, Base):
     name = Column(String(150), nullable=False, unique=True)
     slug = Column(String(250), nullable=False)
     description = Column(Text, nullable=False)
-    # image = Column(String(250), default='category_image.png', nullable=False)
-    image = Column(BLOB, default='category_image.png', nullable=False)
+    image = Column(String(250), default='default.png', nullable=False
     meta_title = Column(String(200), nullable=False)
     meta_description = Column(String(200), nullable=False)
     meta_keyword = Column(String(200), nullable=False)
