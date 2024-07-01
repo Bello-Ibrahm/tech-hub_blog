@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Flask Application """
 from models import storage
+from flask import Flask
 from api.v1.views import app_views
 from os import environ
 from flask import Flask, render_template, make_response, jsonify
@@ -23,11 +24,8 @@ def close_db(error):
 
 @app.errorhandler(404)
 def not_found(error):
-    """ 404 Error
-    ---
-    responses:
-      404:
-        description: a resource was not found
+    """ 
+    404 Error
     """
     return make_response(jsonify({'error': "Not found"}), 404)
 
