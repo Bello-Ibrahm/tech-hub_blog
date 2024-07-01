@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Flask Application """
 from models import storage
-from flask import Flask
+from os import getenv
 from api.v1.views import app_views
 from os import environ
 from flask import Flask, render_template, make_response, jsonify
@@ -39,10 +39,6 @@ Swagger(app)
 
 if __name__ == "__main__":
     """ Main Function """
-    host = environ.get('TECH_HUB_API_HOST')
-    port = environ.get('TECH_HUB_API_PORT')
-    if not host:
-        host = '0.0.0.0'
-    if not port:
-        port = '5000'
+    host = getenv('TECH_HUB_API_HOST', '0.0.0.0')
+    port = getenv('TECH_HUB_API_PORT', 5000)
     app.run(host=host, port=port, threaded=True)
