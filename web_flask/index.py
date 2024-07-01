@@ -1,15 +1,16 @@
 #!/usr/bin/python3
 """ Starts a Flash Web Application """
+import os
+import secrets
+from PIL import Image
 from models import storage
 from models.user import User
 from models.category import Category
 from models.post import Post
-import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, flash, url_for, request, session
 from .forms import LoginForm, RegistrationForm, CategoryForm, PostForm
 from flask_session import Session
-import hashlib
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import IntegrityError
 from datetime import timedelta
@@ -21,7 +22,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['SESSION_TYPE'] = 'filesystem' 
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
-app.config['UPLOAD_FOLDER'] = '/static/images/'
+app.config['UPLOAD_FOLDER'] = 'static/images/uploads/'
 Session(app)
 
 
@@ -180,35 +181,86 @@ def view_post():
         return redirect(url_for('login'))
 
 
+def save_image(img):
+    """
+    Save the uploaded image to the server after resizing it to a thumbnail.
+
+    Parameters:
+    img (FileStorage): The image file object to be saved. Should be obtained
+                       from a Flask file upload.
+
+    Returns:
+    str: The filename of the saved image.
+    """
+    file_rand_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(img.filename)
+    img_fn = file_rand_hex + f_ext
+    img_path = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], img_fn)
+    
+    image_resize_output = (500, 500)
+    image_result = Image.open(img)
+    image_result.thumbnail(image_resize_output)
+    
+    image_result.save(img_path)
+
+    return img_fn
+
+
+
 @app.route('/admin/category', methods=['POST', 'GET'], strict_slashes=False)
 def category():
     """ Handles Category """
     if session.get('logged_in'):
         form = CategoryForm()
         if form.validate_on_submit() and request.method == "POST":
-            name = form.name.data
-            slug = form.slug.data
-            description = form.description.data
-            image = form.image.data
-            meta_title = form.meta_title.data
-            meta_description = form.meta_description.data
-            meta_keyword = form.meta_keyword.data
-            navbar_status = 1 if form.navbar_status.data else 0
-            status = 1 if form.status.data else 0
-            created_by = form.created_by.data
+            if form.image.data:
+                image_upload = save_image(form.image.data)
+            
+                name = form.name.data
+                slug = form.slug.data
+                description = form.description.data
+                image = image_upload
+                meta_title = form.meta_title.data
+                meta_description = form.meta_description.data
+                meta_keyword = form.meta_keyword.data
+                navbar_status = 1 if form.navbar_status.data else 0
+                status = 1 if form.status.data else 0
+                created_by = form.created_by.data
 
-            category = Category(
-                name=name,
-                slug=slug, 
-                description=description,
-                image=image,
-                meta_title=meta_title,
-                meta_description=meta_description,
-                meta_keyword=meta_keyword,
-                navbar_status=navbar_status,
-                status=status,
-                created_by=created_by
-            )
+                category = Category(
+                    name=name,
+                    slug=slug, 
+                    description=description,
+                    image=image,
+                    meta_title=meta_title,
+                    meta_description=meta_description,
+                    meta_keyword=meta_keyword,
+                    navbar_status=navbar_status,
+                    status=status,
+                    created_by=created_by
+                )
+            else:
+                name = form.name.data
+                slug = form.slug.data
+                description = form.description.data
+                meta_title = form.meta_title.data
+                meta_description = form.meta_description.data
+                meta_keyword = form.meta_keyword.data
+                navbar_status = 1 if form.navbar_status.data else 0
+                status = 1 if form.status.data else 0
+                created_by = form.created_by.data
+
+                category = Category(
+                    name=name,
+                    slug=slug, 
+                    description=description,
+                    meta_title=meta_title,
+                    meta_description=meta_description,
+                    meta_keyword=meta_keyword,
+                    navbar_status=navbar_status,
+                    status=status,
+                    created_by=created_by
+                )
 
             try: # To handle Duplicate category name
                 storage.new(category)
