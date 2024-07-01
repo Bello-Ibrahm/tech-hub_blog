@@ -30,7 +30,7 @@
                       <tr>
                           <td>{{ loop.index }}</td>
                           <td>{{ category.name }}</td>
-                          <td><img src="{{ category.image }}" alt="Category image"></td>
+                          <td><img src="{{ url_for('static', filename='images/uploads/' + category.image) }}" width="100" alt="Category image"></td>
                           <td>
                             {% if category.navbar_status == 1 %}
                               Hidden
@@ -39,11 +39,12 @@
                             {% endif %}
                           </td>                      
                           <td>
-                            <div id="recordList">
-                              <a href="{{ url_for('edit_category', category_id=category.id) }}" class="btn btn-primary">Edit</a>
-                              <a data-record-id="{{ category.id }}" class="btn btn-danger deleteButton">Delete</a>
-                              <!-- <a href="{{ url_for('delete_category', category_id=category.id) }}" id="deleteButton" class="btn btn-danger">Delete</a> -->
-                            </div>
+                            <a href="{{ url_for('edit_category', category_id=category.id) }}" title="Edit" class="btn btn-primary">
+                              <i class="fas fa-sm fa-edit"></i>
+                            </a>
+                            <button type="button" title="Delete" onclick="deleteRecord(this);" data-record-id="{{ category.id }}" class="btn btn-danger">
+                              <i class="fas fa-sm fa-times"></i>
+                            </button>
                        </td>
                       </tr>
                       {% endfor %}
