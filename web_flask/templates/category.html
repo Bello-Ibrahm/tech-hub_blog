@@ -14,45 +14,95 @@
           <div class="col-md-12">
             <form action="" method="POST" enctype="multipart/form-data">
               {{ form.hidden_tag() }}
-                <div class="mb-3">
+                <div class="form-group mb-3">
                   {{ form.name.label() }}
-                  {{ form.name(class="form-control") }}
-                  <!-- <label for=""> Category name</label> -->
-                  <!-- <input type="text" name="name" class="form-control" required> -->
+                  {% if form.name.errors %}
+                    {{ form.name(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.name.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                  {% else %}
+                    {{ form.name(class="form-control") }}
+                  {% endif %}
                 </div>
-                <div class="mb-3">
+                <div class="form-group mb-3">
                   {{ form.slug.label() }}
-                  {{ form.slug(class="form-control") }}
-                    <!-- <label for=""> Slug</label>
-                    <input type="text" name="slug" class="form-control" required> -->
+                  {% if form.slug.errors %}
+                    {{ form.slug(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.slug.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                  {% else %}
+                    {{ form.slug(class="form-control") }}
+                  {% endif %}
                 </div>
-                <div class="mb-3">
+                <div class="form-group mb-3">
                   {{ form.description.label() }}
-                  {{ form.description(class="form-control", id="post-textarea") }}
-                    <!-- <label for=""> Descriptions</label>
-                    <textarea  name="description" id="post-textarea" rows="5" class="form-control"></textarea> -->
+                  {% if form.description.errors %}
+                    {{ form.description(class="form-control is-invalid", id="post-textarea") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                  {% else %}
+                    {{ form.description(class="form-control", id="post-textarea") }}
+                  {% endif %}
                 </div>
-                <div class="mb-3">
+                <div class="form-group mb-3">
                   {{ form.image.label() }}
-                  {{ form.image(class="form-control", type="file") }}
-                    <!-- <label for=""> Image</label>
-                    <input type="file" name="image" class="form-control" required> -->
+                  {% if form.image.errors %}
+                    {% for error in form.image.errors %}
+                      <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                  {% else %}
+                    {{ form.image(class="form-control-file") }}
+                  {% endif %}
                 </div>
 
                 <h6>SEO Tags</h6>
-                <div class="mb-3">
+                <div class="form-group mb-3">
                   {{ form.meta_title.label() }}
-                  {{ form.meta_title(class="form-control") }}
-                    <!-- <label for=""> Meta Title</label>
-                    <input type="text" name="meta_tilte" class="form-control" required> -->
+                  {% if form.meta_title.errors %}
+                    {{ form.meta_title(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.meta_title.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                  {% else %}
+                    {{ form.meta_title(class="form-control") }}
+                  {% endif %}
                 </div>
-                <div class="mb-3">
+                <div class="form-group mb-3">
                   {{ form.meta_description.label() }}
-                  {{ form.meta_description(class="form-control") }}
+                  {% if form.meta_description.errors %}
+                    {{ form.meta_description(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.meta_description.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                  {% else %}
+                    {{ form.meta_description(class="form-control") }}
+                  {% endif %}
                 </div>
-                <div class="mb-3">
+                <div class="form-group mb-3">
                   {{ form.meta_keyword.label() }}
-                  {{ form.meta_keyword(class="form-control") }}
+                  {% if form.meta_keyword.errors %}
+                    {{ form.meta_keyword(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.meta_keyword.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                  {% else %}
+                    {{ form.meta_keyword(class="form-control") }}
+                  {% endif %}
                 </div>
 
                 <h6>Status Code</h6>
