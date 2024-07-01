@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 from models import storage
@@ -25,7 +26,7 @@ class CategoryForm(FlaskForm):
   name = StringField('* Category Name', validators=[DataRequired()])
   slug = StringField('* Slug', validators=[DataRequired()])
   description = TextAreaField('* Description', validators=[DataRequired()])
-  image = StringField('Image')
+  image = FileField('Image', validators=[FileAllowed(['jpeg', 'png', 'jpg'])])
   meta_title = StringField('* Meta Title', validators=[DataRequired()])
   meta_description = StringField('* Meta Description', validators=[DataRequired()])
   meta_keyword = StringField('* Meta Keyword', validators=[DataRequired()])
