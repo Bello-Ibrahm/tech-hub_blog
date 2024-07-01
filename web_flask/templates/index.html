@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blog Post | Home</title>
+  <title>Home | Tech Hub Blog</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/thb_logo_no_bg.png') }}" />
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -28,15 +29,15 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 w-100">
-        <img src="{{ url_for('static', filename='images/thb_logo_no_bg.png')}}" alt="Logo">
+      <div class="col-md-2 border">
+        <img src="{{ url_for('static', filename='images/thb_logo_no_bg.png')}}"  width="200" alt="Logo">
       </div>
-      <div class="col-md-9 text-center my-auto">
+      <div class="col-md-10 border text-center my-auto">
         <h3>Ads</h3>
       </div>
     </div>
     
-    <nav class="navbar sticky navbar-expand-lg navbar-dark bg-green">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-green">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
