@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% if posts %}
+    {% for post in posts %}
+    <meta title="{{ post.meta_title }}">
+    <meta description="{{ post.meta_description }}">
+    <meta keyword="{{ post.meta_keyword }}">
+    {% endfor %}
+    {% endif %}
+
+    <title>Home | Tech Hub Blog</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/thb_logo_no_bg.png') }}" />
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/all.min.css')}}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/OverlayScrollbars.min.css')}}">
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='codemirror.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme/monokai.css') }}">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/adminlte.min.css')}}">
+    <!-- Custom style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css')}}">
+
+    <!-- sweetalert2.js -->
+    <script src="{{ url_for('static', filename='scripts/sweetalert2.js')}}"></script>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__wobble" src="{{ url_for('static', filename='images/thb_logo_no_bg.png')}}" alt="Logo"
+            height="60" width="60">
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 border">
+                <img src="{{ url_for('static', filename='images/thb_logo_no_bg.png')}}" width="200" alt="Logo">
+            </div>
+            <div class="col-md-10 border text-center my-auto">
+                <h3>Ads</h3>
+            </div>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <script>
+            Swal.fire({
+                position: "top-end",
+                icon: "{{ category }}",
+                title: "{{ message }}",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        </script>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-green">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav  me-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('index')}}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    {% if nav_cont_lst %}
+                    <!-- <form action="" method="POST"> -->
+                    {% for category in nav_cont_lst %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('tutorial', category_slug=category.slug) }}">{{
+                            category.name }}</a>
+                    </li>
+                    {% endfor %}
+                    <!-- </form> -->
+                    <!-- <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown link
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li> -->
+                    {% endif %}
+                </ul>
+            </div>
+            {% if session.get('logged_in') %}
+            <a id="logoutButton" title="Logout" class="text-white">
+                <i class="fas fa-lock"></i>
+            </a>
+            {% else %}
+            <a href="{{ url_for('login')}}" class="text-decoration-none text-white"> Login </a>
+            {% endif %}
+        </nav>
+
+        {% block frontendContent %} {% endblock frontendContent %}
+
+
+    </div>
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='scripts/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='scripts/bootstrap.bundle.min.js')}}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{{ url_for('static', filename='scripts/jquery.overlayScrollbars.min.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ url_for('static', filename='scripts/adminlte.js')}}"></script>
+
+    <!-- CodeMirror -->
+    <script src="{{ url_for('static', filename='codemirror.js') }}"></script>
+    <script src="{{ url_for('static', filename='mode/css/css.js') }}"></script>
+    <script src="{{ url_for('static', filename='mode/xml/xml.js') }}"></script>
+    <script src="{{ url_for('static', filename='mode/htmlmixed/htmlmixed.js') }}"></script>
+
+    <!-- Custom js -->
+    <script src="{{ url_for('static', filename='scripts/custom.js') }}"></script>
+
+    <script>
+        // Handle logout
+        $(document).ready(function () {
+            $('#logoutButton').click(function () {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You will be logged out.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, logout"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ url_for('logout') }}"; // Redirect to logout route
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
