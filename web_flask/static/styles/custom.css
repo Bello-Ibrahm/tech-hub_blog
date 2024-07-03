@@ -1,3 +1,12 @@
-.bg-green {
-    /* background-color: #e9e3e0; */
+.category-header {
+    font-weight: 800;
+    border-left: 10px solid green;
+}
+
+code {
+    display: block;
+    white-space: pre-wrap;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
 }
