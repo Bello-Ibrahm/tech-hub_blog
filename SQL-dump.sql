@@ -33,7 +33,7 @@ CREATE TABLE `categories` (
   `name` varchar(150) NOT NULL UNIQUE,
   `slug` varchar(250) NOT NULL,
   `description` TEXT NOT NULL,
-  `image` varchar(250) NOT NULL,
+  `image` varchar(250) NULL,
   `meta_title` varchar(200) NOT NULL,
   `meta_description` varchar(200) NOT NULL,
   `meta_keyword` varchar(200) NOT NULL,
@@ -67,3 +67,7 @@ CREATE TABLE `posts` (
   CONSTRAINT `fk_posts_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
   CONSTRAINT `fk_posts_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+INSERT INTO `users`(id, name, email, password, role) 
+VALUES('f35cdf6d-9dbf-4ad1-b201-654d9c4b0cdd', 'Admin user', 'admin@test.com', '81dc9bdb52d04dc20036dbd8313ed055', 1);
