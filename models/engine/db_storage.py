@@ -102,6 +102,34 @@ class DBStorage:
                 return value
         return None
 
+    def get_by_slug(self, cls, slug):
+        """
+        Returns the object based on the class name and its slug, or
+        None if not found
+        """
+        if cls not in classes.values():
+            return None
+
+        all_cls = models.storage.all(cls)
+        for value in all_cls.values():
+            if (value.slug == slug):
+                return value
+        return None
+
+    def get_posts_with_category(self):
+        """
+        Fetches all posts along with their associated category.
+        Returns a list of tuples (Post object, Category object).
+        """
+        posts_with_category = []
+
+        posts = self.__session.query(Post).all()
+        for post in posts:
+            category = self.__session.query(Category).filter_by(id=post.category_id).first()
+            posts_with_category.append((post, category))
+
+        return posts_with_category
+
     def update(self, cls, id, **kwargs):
         """
         Update the object based on the class name and its ID
