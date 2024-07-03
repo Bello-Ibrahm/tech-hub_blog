@@ -111,7 +111,16 @@
           <div class="col-8">
             <div class="icheck-primary">
               {{ form.terms_agreement(id="agreeTerms", value="agree") }}
-              {{ form.terms_agreement.label(for="agreeTerms") }}
+              {% if form.terms_agreement.errors %}
+                {{ form.terms_agreement(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.terms_agreement.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.terms_agreement.label(for="agreeTerms") }}
+              {% endif %}
             </div>
           </div>
           <!-- /.col -->
@@ -147,6 +156,9 @@
 <script src="{{ url_for('static', filename='scripts/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url_for('static', filename='scripts/adminlte.min.js') }}"></script>
+
+<!-- Custom js -->
+<script src="{{ url_for('static', filename='scripts/custom.js') }}"></script>
 </body>
 </html>
 

@@ -1,87 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home | Tech Hub Blog</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/thb_logo_no_bg.png') }}" />
+{% extends "frontend-layout.html" %}
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/all.min.css')}}">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/OverlayScrollbars.min.css')}}">
-  <!-- CodeMirror -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='codemirror.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='theme/monokai.css') }}">
-
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/adminlte.min.css')}}">
-  <!-- Custom style -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css')}}">
-</head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-  <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__wobble" src="{{ url_for('static', filename='images/thb_logo_no_bg.png')}}" alt="Logo" height="60" width="60">
-  </div> 
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2 border">
-        <img src="{{ url_for('static', filename='images/thb_logo_no_bg.png')}}"  width="200" alt="Logo">
-      </div>
-      <div class="col-md-10 border text-center my-auto">
-        <h3>Ads</h3>
-      </div>
-    </div>
-    
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-green">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav  me-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown link
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Python</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">PHP</a>
-          </li>
-        </ul>
-      </div>
-      <a href="{{ url_for('login')}}" class="text-decoration-none text-white"> Login </a>
-    </nav>
-  
+{% block frontendContent %}
     <div class="row">
       <!-- LEFT SIDE CONTENT -->
       <div class="col-md-2 mt-3">
         <h3>
-          Post Category name
+          Post Category_slug
         </h3>
         <nav class="navbar navbar-expand-lg">
-          <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarCategory" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarCategory"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCategory">
-            <ul class="nav nav-pills nav-sidebar overflow-auto flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar overflow-auto flex-column" data-widget="treeview" role="menu"
+              data-accordion="false">
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
+                  <p>Post Category Content(Tutorial/Category_slug/post_slug)</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -89,177 +25,40 @@
                   <p>Post Category Content</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Post Category Content</p>
-                </a>
-              </li>
-              <li class="nav-item menu-close">
-                <a href="#" class="nav-link">
-                  <p>
-                    Post Category Content with sub
-                    <i class="right fas fa-angle-down"></i>
-                  </p>
-                </a>         
-                <ul class="nav nav-treeview">
+              <!-- <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="#" class="nav-link">
                       <p>Sub Content</p>
                     </a>
                   </li>
-                </ul>
+                </ul> -->
               </li>
             </ul>
           </div>
         </nav>
       </div>
-      <!--X-- LEFT AIDE CONTENT --X-->
+      <!--X-- LEFT SIDE CONTENT --X-->
 
       <!-- MAIN CONTENT -->
       <div class="col-md-8 col-sm-12 mt-3 shadow ">
         <!-- TOP ADs CONTENT -->
         <div class="row py-3">
-          <div class="col my-auto text-center">
+          <div class="col-12 my-auto text-center border">
             <h6> Top Ads</h6>
+          </div>
+          <div class="col-12">
+            <img src="https://dummyimage.com/400x400/e3e3e3/fff.png&text=Empty+Image+Template" alt="Category name" />
+            <!-- https://www.youtube.com/watch?v=ym-NQ8KqLAY&list=PLRheCL1cXHrsok0K0qz2b612zoCSe4VPW&index=15
+            https://www.youtube.com/watch?v=803Ei2Sq-Zs&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH&index=8 -->
           </div>
         </div>
         <div class="row px-2">
           <h4> Post Category Content goes here </h4>
-          
+
 
           <textarea name="" class="w-100" id="codeMirrorTextDesc">
  <!-- RIGHT SIDE CONTENT -->
- <div class="col-md-2 mt-3">
+ <div class="col-md-2 mt-3 border">
   <h5>Advertisements goes here</h5>
   <p>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos sequi magni fugit. Dolor non sequi tempora voluptate explicabo, similique quam blanditiis voluptatibus error totam accusantium!
@@ -273,39 +72,14 @@
       <!--X-- MAIN CONTENT --X-->
 
       <!-- RIGHT SIDE CONTENT -->
-      <div class="col-md-2 mt-3">
+      <div class="col-md-2 mt-3 border">
         <h5>Advertisements goes here</h5>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos sequi magni fugit. Dolor non sequi tempora voluptate explicabo, similique quam blanditiis voluptatibus error totam accusantium!
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos sequi magni fugit. Dolor non sequi tempora
+          voluptate explicabo, similique quam blanditiis voluptatibus error totam accusantium!
         </p>
       </div>
       <!--X-- RIGHT SIDE CONTENT --X-->
     </div>
-    
-  </div>
-<!-- REQUIRED SCRIPTS -->
-<!-- jQuery -->
-<script src="{{ url_for('static', filename='scripts/jquery.min.js')}}"></script>
-<!-- Bootstrap -->
-<script src="{{ url_for('static', filename='scripts/bootstrap.bundle.min.js')}}"></script>
-<!-- overlayScrollbars -->
-<script src="{{ url_for('static', filename='scripts/jquery.overlayScrollbars.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{ url_for('static', filename='scripts/adminlte.js')}}"></script>
 
-<!-- CodeMirror -->
-<script src="{{ url_for('static', filename='codemirror.js') }}"></script>
-<script src="{{ url_for('static', filename='mode/css/css.js') }}"></script>
-<script src="{{ url_for('static', filename='mode/xml/xml.js') }}"></script>
-<script src="{{ url_for('static', filename='mode/htmlmixed/htmlmixed.js') }}"></script>
-<script>
-  $(function () {
-      // CodeMirror
-      CodeMirror.fromTextArea(document.getElementById("codeMirrorTextDesc"), {
-        mode: "htmlmixed",
-        theme: "monokai"
-      });
-    });
-</script>
-</body>
-</html>
+    {% endblock frontendContent %}

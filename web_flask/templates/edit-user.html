@@ -6,37 +6,39 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h5 class="card-title">Edit User</h5>
+        <h5 class="card-title">Update User</h5>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <form action="" method="post">
+            {% if user %}
+            <form action="{{ url_for('update_user', user_id=user_id) }}" method="POST">
                 <div class="mb-3">
                     <label for=""> Full Name</label>
-                    <input type="text" disabled name="name" value="" class="form-control" required>
+                    <input type="text" name="name" value="{{ user.name }}" class="form-control" required>
+                    <input type="hidden" name="user_id" value="{{ user.id }}" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for=""> User Email</label>
-                    <input type="text" disabled name="email" value="" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for=""> Created at</label>
-                    <input type="text" name="created_at" value="" disabled class="form-control" required>
+                    <input type="text" disabled name="email" value="{{ user.email }}" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for=""> Role as</label>
-                    <select name="role_as" class="form-control" required>
-                        <option value="0">User</option>
-                        <option value="1">Admin</option>
-                        <option value="2">Blogger</option>
+                    <select name="role" class="form-control" required>
+                      <option value="">--User role--</option>
+                      <option value="0"
+                      {% if user.role == 0 %} selected {% endif %}> User</option>
+                      <option value="1"
+                      {% if user.role == 1 %} selected {% endif %}>Admin</option>                    
                     </select>
                 </div>
                 <div class="mb-3">
-                    <button name="update_user" type="submit" class="btn btn-primary float-right">Update User Role</button>
+                  <a href="{{url_for('view_user') }}" class="btn btn-default">Back</a>
+                    <button type="submit" class="btn btn-primary float-right">Update User Role</button>
                 </div>
             </form>
+            {% endif %}
           </div>
         </div>
         <!-- /.row -->

@@ -7,39 +7,57 @@
     <div class="card">
       <div class="card-header">
         <h1 class="card-title">View Post</h1>
-        <a href="post.html" class="btn btn-primary float-right">Add Post</a>
+        <a href="{{ url_for('post') }}" class="btn btn-primary float-right">Add Post</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <table id="example1" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Category</th>
-                        <th>Post Name</th>
-                        <th>Status</th>
-                        <th>Action</th>
+            <form action="" method="GET">
+              <table id="example1" class="table table-bordered table-hover">
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>Category</th>
+                          <th>Post Name</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% if posts %}
+                      {% for post, category in posts %}
+                      <tr>
+                        <td>{{ loop.index }}</td>
+                        <td> {{ category.name }} </td>
+                        <td>
+                          {{ post.name }}
+                        </td>
+                        <td>
+                            {% if post.status == 0 %}
+                              Visible
+                            {% else %}
+                              Hidden
+                            {% endif %}
+                        </td>
+                        <td>
+                          <a href="{{ url_for('edit_post', post_id=post.id) }}" title="Edit" class="btn btn-primary">
+                            <i class="fas fa-sm fa-edit"></i>
+                          </a>
+                          <button type="button" title="Delete" onclick="deletePost(this);" data-record-id="{{ post.id }}" class="btn btn-danger">
+                            <i class="fas fa-sm fa-times"></i>
+                          </button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
+                      {% endfor %}
+                    {% else %}
                     <tr>
-                        <td>1</td>
-                        <td>PHP</td>
-                        <td>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim, necessitatibus?
-                        </td>
-                        <td>
-                            Hidden/Visible
-                        </td>
-                        <td>
-                            <a href="edit-post.html?id=" class="btn btn-success">Edit</a>
-                            <a href="delete-post.html?id=" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                      <td colspan="5" class="text-center"> No post found. </td>
+                  </tr>
+                    {% endif %}
+                  </tbody>
+              </table>
+            </form>
           </div>
         </div>
         <!-- /.row -->
