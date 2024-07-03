@@ -73,8 +73,8 @@
                     <div class="col-md-6 mb-3">
                       {{ form.status.label() }}
                       {{ form.status(type="checkbox") }}
-                        <!-- <label for="">Status</label>
-                        <input type="checkbox" name="status"> -->
+                        
+                      <input type="hidden" value="{{ session['user_id'] }}" name="created_by">
                     </div>
                     <div class="col-md-6 mb-3">
                       {{ form.submit(class="btn btn-primary float-right") }}

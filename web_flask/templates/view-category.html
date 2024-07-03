@@ -30,19 +30,24 @@
                       <tr>
                           <td>{{ loop.index }}</td>
                           <td>{{ category.name }}</td>
-                          <td><img src="{{ url_for('static', filename='images/uploads/' + category.image) }}" width="100" alt="Category image"></td>
                           <td>
-                            {% if category.navbar_status == 1 %}
-                              Hidden
+                            {% if category.image %}
+                              <img src="{{ url_for('static', filename='images/uploads/' + category.image) }}" width="100" alt="Category image"></td>
                             {% else %}
+                              <img src="" alt="Category image"></td>
+                            {% endif %}
+                          <td>
+                            {% if category.navbar_status == 0 and category.status == 0 %}
                               Visible
+                            {% else %}
+                              Hidden
                             {% endif %}
                           </td>                      
                           <td>
                             <a href="{{ url_for('edit_category', category_id=category.id) }}" title="Edit" class="btn btn-primary">
                               <i class="fas fa-sm fa-edit"></i>
                             </a>
-                            <button type="button" title="Delete" onclick="deleteRecord(this);" data-record-id="{{ category.id }}" class="btn btn-danger">
+                            <button type="button" title="Delete" onclick="deleteCategory(this);" data-record-id="{{ category.id }}" class="btn btn-danger">
                               <i class="fas fa-sm fa-times"></i>
                             </button>
                        </td>

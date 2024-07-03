@@ -108,6 +108,8 @@
       </p>
       <p class="mb-0">
         <a href="{{ url_for('register')}}" class="text-center">Register a new membership</a>
+        |
+        <a href="{{ url_for('index')}}" class="text-center">Homepage</a>
       </p>
     </div>
     <!-- /.login-card-body -->
@@ -121,8 +123,10 @@
 <!-- Bootstrap 4 -->
 <script src="{{ url_for('static', filename='scripts/bootstrap.bundle.min.js')}}"></script>
 
-
 <!-- AdminLTE App -->
 <script src="{{ url_for('static', filename='scripts/adminlte.min.js')}}"></script>
+
+<!-- Custom js -->
+<script src="{{ url_for('static', filename='scripts/custom.js') }}"></script>
 </body>
 </html>
