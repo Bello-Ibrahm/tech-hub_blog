@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h1 class="card-title">View Post</h1>
+        <a href="{{ url_for('user') }}" class="btn btn-primary float-right">Add User</a>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form action="" method="GET">
+              <table id="example1" class="table table-bordered table-hover">
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>User name</th>
+                          <th>Email</th>
+                          <th>Role</th>
+                          <th>Reg Date</th>
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% if users %}
+                      {% for user in users %}
+                      <tr>
+                        <td>{{ loop.index }}</td>
+                        <td> {{ user.name }} </td>
+                        <td>
+                          {{ user.email }}
+                        </td>
+                        <td>
+                            {% if user.role == 0 %}
+                              Normal User
+                            {% else %}
+                              Admin
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ user.created_at }}
+                        </td>
+                        <td>
+                          <a href="{{ url_for('edit_user', user_id=user.id) }}" title="Edit" class="btn btn-primary">
+                            <i class="fas fa-sm fa-edit"></i>
+                          </a>
+                        </td>
+                    </tr>
+                      {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td colspan="5" class="text-center"> No user found. </td>
+                  </tr>
+                    {% endif %}
+                  </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- ./card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->
+
+{% endblock content %}
