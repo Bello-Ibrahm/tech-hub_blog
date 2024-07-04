@@ -3,17 +3,17 @@
 Contains the class DBStorage
 """
 
+from os import getenv
+import sqlalchemy
+from sqlalchemy import create_engine
+from dotenv import load_dotenv
+from sqlalchemy.orm import scoped_session, sessionmaker
 import models
 from models.base_model import BaseModel, Base
 from models.user import User
 from models.category import Category
 from models.post import Post
-from os import getenv
-from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
-import sqlalchemy
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
 
 classes = {"User": User, "Category": Category, "Post": Post}
 
@@ -88,6 +88,22 @@ class DBStorage:
             if (value.id == id):
                 return value
 
+    def all_vis_cat(self, cls=None):
+        """
+        Get all the categories from the database
+        where navbar_status=0 and status = 0
+        """
+        new_dict = {}
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                objs = self.__session.query(classes[clss])\
+                    .filter(Category.navbar_status == 0, Category.status == 0)\
+                    .all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+        return (new_dict)
+
     def get_by_email(self, cls, email):
         """
         Returns the object based on the class name and its Email, or
@@ -125,7 +141,63 @@ class DBStorage:
 
         posts = self.__session.query(Post).all()
         for post in posts:
-            category = self.__session.query(Category).filter_by(id=post.category_id).first()
+            category = self.__session.query(Category)\
+                    .filter_by(id=post.category_id).first()
+            posts_with_category.append((post, category))
+
+        return posts_with_category
+
+    def get_visible_P_C(self, category_id):
+        """
+        Fetches all posts along with their associated category
+        where category's navbar_status=0 and status=0.
+        Returns a list of tuples (Post object, Category object).
+        """
+        posts_with_category = []
+
+        # Perform a join query to fetch posts and their associated categories
+        query = self.__session.query(Post, Category)\
+            .join(Category, Post.category_id == Category.id)\
+            .filter(Category.navbar_status == 0, Category.status == 0, Post.status == 0, Post.category_id == category_id)\
+            .all()
+
+        for post, category in query:
+            posts_with_category.append((post, category))
+
+        return posts_with_category
+
+    def postView(self, cat_id, post_id):
+        """
+        Fetches all posts along with their associated category
+        where category's navbar_status=0 and status=0.
+        Returns a list of tuples (Post object, Category object).
+        """
+        posts_with_category = []
+
+        # Perform a join query to fetch posts and their associated categories
+        query = self.__session.query(Post, Category)\
+            .join(Category, Post.category_id == Category.id)\
+            .filter(Post.status == 0, Post.id == post_id, Post.category_id == cat_id)\
+            .all()
+
+        for post, category in query:
+            posts_with_category.append((post, category))
+
+        return posts_with_category
+
+    def get_posts_with_category_by_category_id(self, category_id):
+        """
+        Fetches posts associated with a specific category ID
+        where category's navbar_status=0 and status=0.
+        Returns a list of tuples (Post object, Category object).
+        """
+        posts_with_category = []
+
+        # Perform a join query to fetch posts and their associated categories
+        query = self.__session.query(Post, Category).join(Category, Post.category_id == Category.id)\
+            .filter(Category.id == category_id, Category.navbar_status == 0, Category.status == 0).all()
+
+        for post, category in query:
             posts_with_category.append((post, category))
 
         return posts_with_category
