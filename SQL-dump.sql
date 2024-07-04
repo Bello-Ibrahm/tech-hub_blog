@@ -37,7 +37,7 @@ CREATE TABLE `categories` (
   `name` varchar(150) NOT NULL UNIQUE,
   `slug` varchar(250) NOT NULL,
   `description` TEXT NOT NULL,
-  `image` varchar(250) NOT NULL,
+  `image` varchar(250) NULL,
   `meta_title` varchar(200) NOT NULL,
   `meta_description` varchar(200) NOT NULL,
   `meta_keyword` varchar(200) NOT NULL,

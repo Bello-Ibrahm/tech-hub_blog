@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    {% if posts %}
-    {% for post in posts %}
-    <meta title="{{ post.meta_title }}">
-    <meta description="{{ post.meta_description }}">
-    <meta keyword="{{ post.meta_keyword }}">
-    {% endfor %}
+    {% if pst %}
+        {% for p, c in pst %}
+            <meta title="{{ p.meta_title }}">
+            <meta description="{{ p.meta_description }}">
+            <meta keyword="{{ p.meta_keyword }}">
+        {% endfor %}
     {% endif %}
 
     <title>Home | Tech Hub Blog</title>
@@ -43,7 +41,7 @@
             height="60" width="60">
     </div>
 
-    <div class="container-fluid">
+    <div class="global-navbar">
         <div class="row">
             <div class="col-md-2 border">
                 <img src="{{ url_for('static', filename='images/thb_logo_no_bg.png')}}" width="200" alt="Logo">
@@ -52,21 +50,6 @@
                 <h3>Ads</h3>
             </div>
         </div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-        <script>
-            Swal.fire({
-                position: "top-end",
-                icon: "{{ category }}",
-                title: "{{ message }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
-        </script>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-green">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,24 +61,13 @@
                         <a class="nav-link" href="{{ url_for('index')}}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     {% if nav_cont_lst %}
-                    <!-- <form action="" method="POST"> -->
-                    {% for category in nav_cont_lst %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('tutorial', category_slug=category.slug) }}">{{
-                            category.name }}</a>
-                    </li>
-                    {% endfor %}
-                    <!-- </form> -->
-                    <!-- <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown link
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li> -->
+                        {% for category in nav_cont_lst %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('tutorial', category_slug=category.slug) }}">
+                                    {{ category.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
                     {% endif %}
                 </ul>
             </div>
@@ -110,7 +82,14 @@
 
         {% block frontendContent %} {% endblock frontendContent %}
 
-
+        <!-- Main Footer -->
+        <footer class="mt-3 p-2">
+            <strong>Copyright &copy; 2024 <a href="#">Tech-Hub </a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 1.1.0
+            </div>
+        </footer>
     </div>
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
