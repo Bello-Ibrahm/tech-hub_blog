@@ -7,6 +7,7 @@ from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String, Integer
 from hashlib import md5
+import hashlib
 
 class User(BaseModel, Base):
     """Representation of a user """
@@ -26,3 +27,7 @@ class User(BaseModel, Base):
         if name == "password":
             value = md5(value.encode()).hexdigest()
         super().__setattr__(name, value)
+        
+    def verify_password(self, entered_password):
+        entered_md5_hash = hashlib.md5(entered_password.encode()).hexdigest()
+        return entered_md5_hash == self.password
