@@ -44,28 +44,44 @@ def close_db(error):
 @app.route('/home', strict_slashes=False)
 def index():
     """TECH HUB BLOG is alive!"""
-    categories = storage.all(Category).values()
-    nav_cont_lst = []
-    for category in categories:
-        if category.navbar_status == 0 and category.status == 0:
-            nav_cont_lst.append(category)
-    if nav_cont_lst:
-        return render_template('index.html', nav_cont_lst=nav_cont_lst)
+    categories = storage.all_vis_cat(Category).values()
+    if categories:
+        return render_template('index.html', nav_cont_lst=categories)
     return render_template('index.html', title='Home')
 
 
 @app.route('/tutorial/<string:category_slug>', methods=['POST', 'GET'], strict_slashes=False)
 def tutorial(category_slug):
+    """ 
+    Handle to get all category, post and return both 
+    """
+    # Get all visible categories
+    cats = storage.all_vis_cat(Category).values()
+
+    # Get category by it slug
+    c_slug = storage.get_by_slug(Category, category_slug)
+
+    # Get all posts related to category by category_id
+    vs = storage.get_visible_P_C(c_slug.id)
+    return render_template('tutorial.html', nav_cont_lst=cats, c_slug=c_slug, vs=vs)
+
+
+@app.route('/tutorial/<string:category_slug>/<string:post_slug>', methods=['POST', 'GET'], strict_slashes=False)
+def post_by_category(category_slug, post_slug):
     """ Handle to get all category, post and return both """
-    categories = storage.all(Category).values()
-    nav_cont_lst = []
-    for category in categories:
-        if category.navbar_status == 0 and category.status == 0:
-            nav_cont_lst.append(category)
+    cats = storage.all_vis_cat(Category).values()
     
-    cat_slug = storage.get_by_slug(Category, category_slug)
-    psts = storage.get_by_slug(Post, category_slug)
-    return render_template('tutorial.html', nav_cont_lst=nav_cont_lst, cat_slug=cat_slug, psts=psts)
+    # Get category by it slug
+    c_slug = storage.get_by_slug(Category, category_slug)
+    # Get post by it slug
+    p_slug = storage.get_by_slug(Post, post_slug)
+
+    # Get all posts related to category by category_id
+    vs = storage.get_visible_P_C(c_slug.id)
+
+    pst = storage.postView(c_slug.id, p_slug.id)
+    
+    return render_template('post-by-category.html', nav_cont_lst=cats, c_slug=c_slug, vs=vs, pst=pst)
 
 
 @app.route('/login', methods=['POST', 'GET'], strict_slashes=False)
@@ -143,7 +159,9 @@ def dashboard():
     if session.get('logged_in') and session.get('admin'):
         num_cats = storage.count(Category)
         num_users = storage.count(User)
-        return render_template('dashboard.html', title='Dashboard', num_cats=num_cats, num_users=num_users)
+        num_psts = storage.count(Post)
+
+        return render_template('dashboard.html', title='Dashboard', num_cats=num_cats, num_users=num_users, num_psts=num_psts)
     else:
         flash('Access Restricted', 'warning')
         return redirect(url_for('login'))
