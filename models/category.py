@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 """ holds class Category"""
+<<<<<<< HEAD
 
+=======
+>>>>>>> 405d5c8 (DB is now connected with the models)
 
 import models
 from models.base_model import BaseModel, Base

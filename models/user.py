@@ -11,7 +11,6 @@ import hashlib
 
 class User(BaseModel, Base):
     """Representation of a user """
-    
     __tablename__ = 'users'
     name = Column(String(150), nullable=False)
     email = Column(String(150), nullable=False, unique=True)

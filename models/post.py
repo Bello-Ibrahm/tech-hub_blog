@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" holds class User"""
+""" holds class Post"""
 
 from models.base_model import BaseModel, Base
 import sqlalchemy
@@ -10,7 +10,6 @@ from slugify import slugify # to handle the slugs
 
 class Post(BaseModel, Base):
     """Representation of a post """
-    
     __tablename__ = 'posts'
     name = Column(String(150), nullable=False, unique=True)
     slug = Column(String(250), nullable=False)
