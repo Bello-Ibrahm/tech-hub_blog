@@ -44,12 +44,6 @@ def post_user():
   if not data:
     abort(400, "Not a json")
 
-  # if 'name' not in data.keys():
-  #   abort(400, "Missing name")
-  # if 'email' not in data.keys():
-  #   abort(400, 'Missing email')
-  # if 'password' not in data.keys():
-  #   abort(400, 'Missing password')
   req_fields = ['name', 'email', 'password', 'role']
   for field in req_fields:
     if field not in data:

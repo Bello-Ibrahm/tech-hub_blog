@@ -34,17 +34,17 @@ def del_post(post_id):
   return jsonify({}), 200
 
 @app_views.route("/posts", strict_slashes=False, methods=['POST'])
-def post_user():
+def create_user():
   """Creating a new post"""
   data = request.get_json()
   if not data:
     abort(400, "Not a json")
 
   req_fields = ['name', 'slug', 'description', 'yt_iframe', 'meta_title', 'meta_description',
-                 'meta_keyword', 'status', 'category_id', 'created_by', 'creator']
+                 'meta_keyword', 'status', 'category_id', 'created_by']
   for field in req_fields:
     if field not in data:
-      abort(400, desc=f"Missing {field}")
+      abort(400, description=f"Missing {field}")
 
   #Creting new user 
   new_post= Post(**data)
