@@ -15,7 +15,7 @@ class Post(BaseModel, Base):
     name = Column(String(150), nullable=False, unique=True)
     slug = Column(String(250), nullable=False)
     description = Column(Text, nullable=False)
-    yt_iframe = Column(String(150), nullable=True)
+    yt_iframe = Column(Text, nullable=True)
     meta_title = Column(String(200), nullable=False)
     meta_description = Column(String(200), nullable=False)
     meta_keyword = Column(String(200), nullable=False)
