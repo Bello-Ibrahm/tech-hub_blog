@@ -54,7 +54,7 @@ CREATE TABLE `posts` (
   `name` varchar(150) NOT NULL UNIQUE,
   `slug` varchar(250),
   `description` TEXT NOT NULL,
-  `yt_iframe` varchar(250) NULL,
+  `yt_iframe` TEXT NULL,
   `meta_title` varchar(200) NOT NULL,
   `meta_description` varchar(200) NOT NULL,
   `meta_keyword` varchar(200) NOT NULL,
