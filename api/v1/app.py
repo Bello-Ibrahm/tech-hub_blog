@@ -21,15 +21,7 @@ def close_db(error):
     storage.close()
 
 
-@app.errorhandler(404)
-def not_found(error):
-    """ 404 Error
-    ---
-    responses:
-      404:
-        description: a resource was not found
-    """
-    return make_response(jsonify({'error': "Not found"}), 404)
+
 
 app.config['SWAGGER'] = {
     'title': 'Tech-Hub Blog Restful API',
