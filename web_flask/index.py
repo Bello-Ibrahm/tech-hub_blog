@@ -270,7 +270,7 @@ def category():
 
 @app.route('/admin/view-category', methods=['GET'], strict_slashes=False)
 def view_category():
-    """Handles view Category"""
+    """Handles view Category route"""
     if session.get('logged_in') and session.get('admin'):
         categories = storage.all(Category).values()
         # Sorting categories by name
