@@ -1,6 +1,8 @@
 .category-header {
     font-weight: 800;
     border-left: 10px solid green;
+    background-color: #e3e3e3;
+    color: #red;
 }
 
 code {
@@ -9,4 +11,15 @@ code {
     background-color: #f0f0f0;
     padding: 10px;
     border-radius: 5px;
+}
+
+.owl-nav button.owl-next, .owl-nav button.owl-prev {
+    color: #fff;
+    margin-left: 10px;
+    background-color: green;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    height: 28px;
+    width: 38px;
 }
