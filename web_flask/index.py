@@ -90,7 +90,7 @@ def post_by_category(category_slug, post_slug):
 
 @app.route('/login', methods=['POST', 'GET'], strict_slashes=False)
 def login():
-    """Handles login"""
+    """Handles login -2 types of users , admin and normal user"""
     form = LoginForm()
     if request.method == "POST" and form.validate_on_submit():
         email = form.email.data
