@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% if pst %}
         {% for p, c in pst %}
-            <meta title="{{ p.meta_title }}">
-            <meta description="{{ p.meta_description }}">
-            <meta keyword="{{ p.meta_keyword }}">
+            <meta name="title" content="{{ p.meta_title }}">
+            <meta name="description" content="{{ p.meta_description }}">
+            <meta name="keyword" content="{{ p.meta_keyword }}">
+            
+            <title> {{ p.meta_title }} | Tech Hub Blog</title>
         {% endfor %}
+    {% else %}
+        <title>Post | Tech Hub Blog</title>
     {% endif %}
 
-    <title>Home | Tech Hub Blog</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/thb_logo_no_bg.png') }}" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -47,7 +50,7 @@
                 <img src="{{ url_for('static', filename='images/thb_logo_no_bg.png')}}" width="200" alt="Logo">
             </div>
             <div class="col-md-10 border text-center my-auto">
-                <h3>Ads</h3>
+                <h3>Advertisement area</h3>
             </div>
         </div>
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-green">
@@ -106,9 +109,6 @@
     <script src="{{ url_for('static', filename='mode/css/css.js') }}"></script>
     <script src="{{ url_for('static', filename='mode/xml/xml.js') }}"></script>
     <script src="{{ url_for('static', filename='mode/htmlmixed/htmlmixed.js') }}"></script>
-
-    <!-- Custom js -->
-    <script src="{{ url_for('static', filename='scripts/custom.js') }}"></script>
 
     <script>
         // Handle logout
