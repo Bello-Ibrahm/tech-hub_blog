@@ -68,7 +68,11 @@ def tutorial(category_slug):
 
 @app.route('/tutorial/<string:category_slug>/<string:post_slug>', methods=['POST', 'GET'], strict_slashes=False)
 def post_by_category(category_slug, post_slug):
-    """ Handle to get all category, post and return both """
+    """
+    Args:
+        category_slug (_type_): _description_
+        post_slug (_type_): _description_
+    """
     cats = storage.all_vis_cat(Category).values()
     
     # Get category by it slug
