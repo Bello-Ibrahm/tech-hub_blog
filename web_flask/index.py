@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Starts a Flash Web Application -Application Starting point"""
+"""Starts a Flash Web Application -Application Starting point """
 
 import os
 from datetime import timedelta
