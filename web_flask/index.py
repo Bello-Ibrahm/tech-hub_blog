@@ -122,6 +122,7 @@ def login():
 
 @app.route('/logout', strict_slashes=False)
 def logout():
+    """Handles logout"""
     session.clear()  # Clear all session variables
     return redirect(url_for('index'))
 
