@@ -53,7 +53,7 @@ def index():
 @app.route('/tutorial/<string:category_slug>', methods=['POST', 'GET'], strict_slashes=False)
 def tutorial(category_slug):
     """ 
-    Handle to get all category, post and return both 
+    Handle to get all categories, posts and return both
     """
     # Get all visible categories
     cats = storage.all_vis_cat(Category).values()
