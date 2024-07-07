@@ -22,6 +22,16 @@ from .forms import (
     CategoryForm, PostForm
 )
 
+load_dotenv()
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+app.config['UPLOAD_FOLDER'] = 'static/images/uploads/'
+app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'jpeg', 'png'}
+
+Session(app)
 
 
 @app.teardown_appcontext
