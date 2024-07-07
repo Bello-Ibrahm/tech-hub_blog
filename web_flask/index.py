@@ -6,7 +6,7 @@ from datetime import timedelta
 import secrets
 from PIL import Image
 from flask import (
-    Flask, redirect,
+    Flask, render_template, redirect,
     flash, url_for, request, session
 )
 from dotenv import load_dotenv
