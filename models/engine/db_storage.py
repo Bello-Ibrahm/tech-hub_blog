@@ -31,8 +31,8 @@ class DBStorage:
         TECH_HUB_MYSQL_DB = getenv('TECH_HUB_MYSQL_DB')
         TECH_HUB_ENV = getenv('TECH_HUB_ENV')
         # uncomment the below line if you are using mysqldb
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-        # self.__engine = create_engine('mariadb+mariadbconnector://{}:{}@{}/{}'.
+        # self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+        self.__engine = create_engine('mariadb+mariadbconnector://{}:{}@{}/{}'.
                                       format(TECH_HUB_MYSQL_USER,
                                              TECH_HUB_MYSQL_PWD,
                                              TECH_HUB_MYSQL_HOST,
